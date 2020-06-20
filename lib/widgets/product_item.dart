@@ -37,14 +37,12 @@ class ProductItem extends StatelessWidget {
           leading: IconButton(
             icon: Icon(
               Icons.favorite,
-              color: Provider.of<ProductsProvider>(context)
-                      .findById(id)
-                      .isFavourite
+              color: Provider.of<ProductProvider>(context).isFavourite
                   ? Theme.of(context).accentColor
                   : Colors.white,
             ),
             onPressed: () {
-              Provider.of<ProductsProvider>(context, listen: false)
+              Provider.of<ProductProvider>(context, listen: false)
                   .toggleFavourite(id);
             },
             color: Theme.of(context).colorScheme.background,

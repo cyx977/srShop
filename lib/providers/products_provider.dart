@@ -42,13 +42,4 @@ class ProductsProvider with ChangeNotifier {
       _items.firstWhere((element) => element.id == id);
 
   List<ProductProvider> get items => [..._items];
-
-  void toggleFavourite(String id) {
-    ProductProvider productToChange = findById(id);
-    int index = _items.indexOf(productToChange);
-    ProductProvider newProduct = _items[index];
-    newProduct.isFavourite = !newProduct.isFavourite;
-    _items[index] = newProduct;
-    notifyListeners();
-  }
 }
