@@ -5,6 +5,7 @@ class ProductsOverviewScreen extends StatelessWidget {
   static const String route = "/";
   @override
   Widget build(BuildContext context) {
+    print("building ProductsOverview Screen");
     return Scaffold(
       drawer: Drawer(),
       appBar: AppBar(

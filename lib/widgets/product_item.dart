@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:srShop/providers/products_provider.dart';
-import 'package:srShop/screens/product_detail.dart';
+import '../providers/product_provider.dart';
+import '../providers/products_provider.dart';
+import '../screens/product_detail.dart';
 
 class ProductItem extends StatelessWidget {
-  ProductItem({
-    @required this.id,
-    @required this.url,
-    @required this.title,
-    @required this.price,
-  });
-  final String url;
-  final String title;
-  final double price;
-  final String id;
-
   @override
   Widget build(BuildContext context) {
+    var productProvider = Provider.of<ProductProvider>(context);
+    final String url = productProvider.imageUrl;
+    final String title = productProvider.title;
+    final double price = productProvider.price;
+    final String id = productProvider.id;
+    print("building ProductItem widget");
     return ClipRRect(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20),
@@ -41,12 +37,15 @@ class ProductItem extends StatelessWidget {
           leading: IconButton(
             icon: Icon(
               Icons.favorite,
-              color: Provider.of<Products>(context).findById(id).isFavourite
+              color: Provider.of<ProductsProvider>(context)
+                      .findById(id)
+                      .isFavourite
                   ? Theme.of(context).accentColor
                   : Colors.white,
             ),
             onPressed: () {
-              Provider.of<Products>(context, listen: false).toggleFavourite(id);
+              Provider.of<ProductsProvider>(context, listen: false)
+                  .toggleFavourite(id);
             },
             color: Theme.of(context).colorScheme.background,
           ),

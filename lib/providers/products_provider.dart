@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models/product.dart';
+import 'package:srShop/providers/product_provider.dart';
+// import '../models/product.dart';
 
-class Products with ChangeNotifier {
-  List<Product> _items = [
-    Product(
+class ProductsProvider with ChangeNotifier {
+  List<ProductProvider> _items = [
+    ProductProvider(
       id: 'p1',
       title: 'Red Shirt',
       description: 'A red shirt - it is pretty red!',
@@ -11,7 +12,7 @@ class Products with ChangeNotifier {
       imageUrl:
           'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
     ),
-    Product(
+    ProductProvider(
       id: 'p2',
       title: 'Trousers',
       description: 'A nice pair of trousers.',
@@ -19,7 +20,7 @@ class Products with ChangeNotifier {
       imageUrl:
           'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg',
     ),
-    Product(
+    ProductProvider(
       id: 'p3',
       title: 'Yellow Scarf',
       description: 'Warm and cozy - exactly what you need for the winter.',
@@ -27,7 +28,7 @@ class Products with ChangeNotifier {
       imageUrl:
           'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
     ),
-    Product(
+    ProductProvider(
       id: 'p4',
       title: 'A Pan',
       description: 'Prepare any meal you want.',
@@ -37,15 +38,15 @@ class Products with ChangeNotifier {
     ),
   ];
 
-  Product findById(String id) =>
+  ProductProvider findById(String id) =>
       _items.firstWhere((element) => element.id == id);
 
-  List<Product> get items => [..._items];
+  List<ProductProvider> get items => [..._items];
 
   void toggleFavourite(String id) {
-    Product productToChange = findById(id);
+    ProductProvider productToChange = findById(id);
     int index = _items.indexOf(productToChange);
-    Product newProduct = _items[index];
+    ProductProvider newProduct = _items[index];
     newProduct.isFavourite = !newProduct.isFavourite;
     _items[index] = newProduct;
     notifyListeners();
