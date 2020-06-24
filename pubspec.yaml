@@ -33,11 +33,20 @@ dependencies:
   permission_handler: ^5.0.1
   downloads_path_provider: ^0.1.0
   contacts_service: ^0.4.6
+  flutter_audio_recorder: ^0.5.5
+  flutter_local_notifications: ^1.4.4+1
+  flutter_launcher_icons: ^0.7.5
+  
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
