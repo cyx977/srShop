@@ -1,17 +1,18 @@
 import 'package:downloads_path_provider/downloads_path_provider.dart';
-
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../widgets/products_grid.dart';
 
 void test() async {
-  if (await Permission.storage.request().isGranted) {
-    print("granted Storage");
+  if (await Permission.contacts.request().isGranted) {
+    Iterable<Contact> contacts =
+        await ContactsService.getContacts(query: 'pra');
+    contacts.toList().forEach((element) {
+      var numbers = element.phones.map((e) => e.value).toList();
+      print("${element.displayName}: ${numbers[0]}");
+    });
   }
-  // if (await Permission.contacts.request().isGranted) {
-  //   print("granted Storage");
-  // }
 }
 
 void writeTest() {
