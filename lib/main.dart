@@ -4,7 +4,7 @@ import 'package:srShop/screens/product_detail.dart';
 import './providers/products_provider.dart';
 import './screens/products_overview_screen.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
@@ -35,9 +35,9 @@ class MyApp extends StatelessWidget {
               brightness: Brightness.light),
         ),
         routes: {
-          /* home */ ProductsOverviewScreen.route:(context) => ProductsOverviewScreen(),
+          /* home */ ProductsOverviewScreen.route: (context) =>
+              ProductsOverviewScreen(),
           ProductDetailScreen.route: (context) => ProductDetailScreen(),
-
         },
       ),
     );

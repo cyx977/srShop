@@ -16,7 +16,7 @@ class ProductProvider with ChangeNotifier {
     this.imageUrl,
     this.isFavourite = false,
   });
-  void toggleFavourite(String id) {
+  void toggleFavourite() {
     this.isFavourite = !this.isFavourite;
     notifyListeners();
   }
