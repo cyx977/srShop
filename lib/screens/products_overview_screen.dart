@@ -1,7 +1,5 @@
-import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_recorder/flutter_audio_recorder.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../widgets/products_grid.dart';
@@ -10,6 +8,7 @@ void contactSearch({String query}) async {
   if (await Permission.contacts.request().isGranted) {
     Iterable<Contact> contacts =
         await ContactsService.getContacts(query: query);
+    print("Searching for \"$query\"");
     contacts.toList().forEach((element) {
       var numbers = element.phones.map((e) => e.value).toList();
       print("${element.displayName}: ${numbers[0]}");
@@ -17,6 +16,7 @@ void contactSearch({String query}) async {
   }
 }
 
+//push notifications
 void writeTest() async {
   if (await Permission.notification.request().isGranted) {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -42,39 +42,10 @@ void writeTest() async {
   } else {
     print("not granted");
   }
-  // DownloadsPathProvider.downloadsDirectory.then((value) => print(value));
-  // getApplicationSupportDirectory().then((value) => print(value));
-  // File("/storage/emulated/0/test.txt").create();
 }
 
 class ProductsOverviewScreen extends StatelessWidget {
-  void recordStart() async {
-    if (await Permission.microphone.request().isGranted &&
-        await Permission.storage.request().isGranted) {
-      // print("Mic and Storage Granted");
-      var x = await DownloadsPathProvider.downloadsDirectory;
-      var recorder = FlutterAudioRecorder(
-        "${x.path}/santosh1",
-        sampleRate: 22000,
-        audioFormat: AudioFormat.WAV,
-      ); // .wav .aac .m4a
-      await recorder.initialized;
-      await recorder.start();
-      // var recording = await recorder.current(channel: 0);
-    }
-  }
-
-  void recordStop() async {
-    var x = await DownloadsPathProvider.downloadsDirectory;
-    var recorder = FlutterAudioRecorder(
-      "${x.path}/santosh",
-      sampleRate: 22000,
-      audioFormat: AudioFormat.AAC,
-    ); // .wav .aac .m4a
-    await recorder.stop();
-  }
-
-  static const String route = "/";
+  static const route = "/";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,10 +53,20 @@ class ProductsOverviewScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Casual"),
         actions: [
-          IconButton(
-            icon: Icon(Icons.accessibility),
-            onPressed: () {},
-          ),
+          PopupMenuButton(
+            onSelected: (value) => print(value),
+            enabled: true,
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                child: Text("Asdf"),
+                value: 200,
+              )
+            ],
+          )
+          // IconButton(
+          //   icon: Icon(Icons.accessibility),
+          //   onPressed: () {},
+          // ),
         ],
       ),
       body: Column(
@@ -96,7 +77,7 @@ class ProductsOverviewScreen extends StatelessWidget {
           ),
           RaisedButton(
             onPressed: () {
-              contactSearch(query: "pra");
+              contactSearch(query: "r");
             },
             child: Text("Contact Search"),
           ),
@@ -105,11 +86,11 @@ class ProductsOverviewScreen extends StatelessWidget {
             child: Text("Notification"),
           ),
           RaisedButton(
-            onPressed: recordStart,
+            onPressed: () {},
             child: Text("Record-Start"),
           ),
           RaisedButton(
-            onPressed: recordStop,
+            onPressed: () {},
             child: Text("Record-Stop"),
           ),
         ],
