@@ -44,23 +44,40 @@ void writeTest() async {
   }
 }
 
-class ProductsOverviewScreen extends StatelessWidget {
+class ProductsOverviewScreen extends StatefulWidget {
   static const route = "/";
+
+  @override
+  _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
+}
+
+class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
+  String popupSelection = "all";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(),
       appBar: AppBar(
         title: Text("Casual"),
-        actions: [
+        actions: <Widget>[
           PopupMenuButton(
-            onSelected: (value) => print(value),
+            icon: Icon(Icons.more_vert),
+            initialValue: popupSelection,
+            onSelected: (value) {
+              setState(() {
+                popupSelection = value;
+              });
+            },
             enabled: true,
             itemBuilder: (context) => [
               PopupMenuItem(
-                child: Text("Asdf"),
-                value: 200,
-              )
+                child: Text("Show All"),
+                value: "all",
+              ),
+              PopupMenuItem(
+                child: Text("Show Favourites"),
+                value: "fav",
+              ),
             ],
           )
           // IconButton(
@@ -73,7 +90,9 @@ class ProductsOverviewScreen extends StatelessWidget {
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.60,
-            child: ProductsGrid(),
+            child: ProductsGrid(
+              popupSelection: popupSelection,
+            ),
           ),
           RaisedButton(
             onPressed: () {

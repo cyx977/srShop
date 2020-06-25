@@ -4,10 +4,10 @@ import '../providers/products_provider.dart';
 import '../widgets/product_item.dart';
 
 class ProductsGrid extends StatelessWidget {
+  final String popupSelection;
+  ProductsGrid({this.popupSelection});
   @override
   Widget build(BuildContext context) {
-    // var provider = Provider.of<ProductsProvider>(context, listen: false);
-    // List<ProductProvider> products = provider.items;
     return Consumer<ProductsProvider>(
       builder: (context, provider, child) => GridView.builder(
         padding: const EdgeInsets.all(10.0),
@@ -18,13 +18,21 @@ class ProductsGrid extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         itemBuilder: (_, index) {
-          var products = provider.items;
+          var products = popupSelection == "all"
+              ? provider.items.toList()
+              : provider.items
+                  .where((element) => element.isFavourite == true)
+                  .toList();
           return ChangeNotifierProvider.value(
             value: products[index],
             child: ProductItem(),
           );
         },
-        itemCount: provider.items.length,
+        itemCount: popupSelection == "fav"
+            ? provider.items
+                .where((element) => element.isFavourite == true)
+                .length
+            : provider.items.length,
       ),
     );
   }
