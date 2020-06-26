@@ -4,7 +4,7 @@ import '../providers/products_provider.dart';
 import '../widgets/product_item.dart';
 
 class ProductsGrid extends StatelessWidget {
-  final String popupSelection;
+  final popupSelection;
   ProductsGrid({this.popupSelection});
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ProductsGrid extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         itemBuilder: (_, index) {
-          var products = popupSelection == "all"
+          var products = popupSelection == true
               ? provider.items.toList()
               : provider.items
                   .where((element) => element.isFavourite == true)
@@ -28,11 +28,11 @@ class ProductsGrid extends StatelessWidget {
             child: ProductItem(),
           );
         },
-        itemCount: popupSelection == "fav"
-            ? provider.items
+        itemCount: popupSelection == true
+            ? provider.items.length
+            : provider.items
                 .where((element) => element.isFavourite == true)
-                .length
-            : provider.items.length,
+                .length,
       ),
     );
   }

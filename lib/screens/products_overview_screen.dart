@@ -51,8 +51,13 @@ class ProductsOverviewScreen extends StatefulWidget {
   _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
 }
 
+enum FilterOptions {
+  All,
+  Favourite,
+}
+
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
-  String popupSelection = "all";
+  bool popupSelection = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,33 +67,33 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         actions: <Widget>[
           PopupMenuButton(
             icon: Icon(Icons.more_vert),
-            initialValue: popupSelection,
-            onSelected: (value) {
+            onSelected: (FilterOptions value) {
               setState(() {
-                popupSelection = value;
+                if (value == FilterOptions.All) {
+                  popupSelection = true;
+                } else {
+                  popupSelection = false;
+                }
               });
             },
             enabled: true,
             itemBuilder: (context) => [
               PopupMenuItem(
                 child: Text("Show All"),
-                value: "all",
+                value: FilterOptions.All,
               ),
               PopupMenuItem(
                 child: Text("Show Favourites"),
-                value: "fav",
+                value: FilterOptions.Favourite,
               ),
             ],
           )
-          // IconButton(
-          //   icon: Icon(Icons.accessibility),
-          //   onPressed: () {},
-          // ),
         ],
       ),
       body: Column(
         children: [
           Container(
+            width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.60,
             child: ProductsGrid(
               popupSelection: popupSelection,
