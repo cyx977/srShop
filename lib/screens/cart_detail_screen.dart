@@ -23,6 +23,7 @@ class CartDetailScreen extends StatelessWidget {
                     "Total",
                     style: TextStyle(fontSize: 20),
                   ),
+                  Spacer(),
                   Chip(
                     backgroundColor: Theme.of(context).primaryColor,
                     label: Consumer<CartProvider>(
