@@ -6,7 +6,11 @@ class CartProvider extends ChangeNotifier {
 
   int get itemCount => _items.length;
 
-  void addItem(String productId, String title, double price) {
+  void addItem({
+    @required String productId,
+    @required String title,
+    @required double price,
+  }) {
     if (_items.containsKey(productId)) {
       _items.update(
         productId,
@@ -28,11 +32,8 @@ class CartProvider extends ChangeNotifier {
         ),
       );
     }
-    notifyListeners();
-  }
 
-  void test() {
-    print("testing");
+    notifyListeners();
   }
 }
 

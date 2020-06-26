@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:srShop/providers/cart_provider.dart';
 import '../providers/product_provider.dart';
 import '../screens/product_detail.dart';
 
@@ -12,7 +13,7 @@ class ProductItem extends StatelessWidget {
     // final double price = productProvider.price;
     // final String id = productProvider.id;
     return Consumer<ProductProvider>(
-      builder: (context, value, child) => ClipRRect(
+      builder: (context, productProvider, child) => ClipRRect(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -23,12 +24,12 @@ class ProductItem extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 ProductDetailScreen.route,
-                arguments: value.id,
+                arguments: productProvider.id,
               );
-              print(value.id);
+              print(productProvider.id);
             },
             child: Image.network(
-              value.imageUrl,
+              productProvider.imageUrl,
               fit: BoxFit.cover,
             ),
           ),
@@ -47,14 +48,24 @@ class ProductItem extends StatelessWidget {
               },
               color: Theme.of(context).colorScheme.background,
             ),
-            trailing: IconButton(
-              icon: Icon(Icons.add_shopping_cart),
-              onPressed: () {},
-              color: Theme.of(context).accentColor,
+            trailing: Consumer<CartProvider>(
+              builder: (context, value, child) {
+                return IconButton(
+                  icon: Icon(Icons.add_shopping_cart),
+                  onPressed: () {
+                    value.addItem(
+                      productId: productProvider.id,
+                      title: productProvider.title,
+                      price: productProvider.price,
+                    );
+                  },
+                  color: Theme.of(context).accentColor,
+                );
+              },
             ),
             title: Center(
               child: Text(
-                "${value.title} \t \$ ${value.price}",
+                "${productProvider.title} \t \$ ${productProvider.price}",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

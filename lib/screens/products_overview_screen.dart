@@ -2,6 +2,9 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
+import 'package:srShop/providers/cart_provider.dart';
+import 'package:srShop/widgets/badge.dart';
 import '../widgets/products_grid.dart';
 
 void contactSearch({String query}) async {
@@ -87,7 +90,21 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 value: FilterOptions.Favourite,
               ),
             ],
-          )
+          ),
+          Consumer<CartProvider>(
+            builder: (context, value, child) {
+              return Badge(
+                child: child,
+                value: value.itemCount.toString(),
+              );
+            },
+            child: IconButton(
+              icon: Icon(
+                Icons.shopping_cart,
+              ),
+              onPressed: () {},
+            ),
+          ),
         ],
       ),
       body: Column(
