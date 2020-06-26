@@ -6,6 +6,14 @@ class CartProvider extends ChangeNotifier {
 
   int get itemCount => _items.length;
 
+  double get getTotal {
+    double total = 0;
+    _items.forEach((key, value) {
+      total += value.price * value.quantity;
+    });
+    return total;
+  }
+
   void addItem({
     @required String productId,
     @required String title,

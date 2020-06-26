@@ -4,6 +4,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:srShop/providers/cart_provider.dart';
+import 'package:srShop/screens/cart_detail_screen.dart';
 import 'package:srShop/widgets/badge.dart';
 import '../widgets/products_grid.dart';
 
@@ -102,7 +103,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               icon: Icon(
                 Icons.shopping_cart,
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, CartDetailScreen.route);
+              },
             ),
           ),
         ],
@@ -118,7 +121,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           ),
           RaisedButton(
             onPressed: () {
-              contactSearch(query: "r");
+              contactSearch(query: "9851");
             },
             child: Text("Contact Search"),
           ),
