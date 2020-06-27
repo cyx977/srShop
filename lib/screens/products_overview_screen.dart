@@ -1,7 +1,3 @@
-import 'dart:io';
-
-import 'package:downloads_path_provider/downloads_path_provider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:srShop/widgets/badge_builder.dart';
 import '../widgets/products_grid.dart';

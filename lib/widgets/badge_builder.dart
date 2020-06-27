@@ -16,7 +16,7 @@ class BadgeBuilder extends StatelessWidget {
       builder: (context, value, child) {
         return Badge(
           child: child,
-          value: value.itemCount.toString(),
+          value: value.itemRecursiveTotalCount.toString(),
         );
       },
       child: IconButton(

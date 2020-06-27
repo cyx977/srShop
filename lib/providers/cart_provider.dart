@@ -1,8 +1,17 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import '../models/cart_model.dart';
 
 class CartProvider extends ChangeNotifier {
   Map<String, CartItem> _items = {};
   Map<String, CartItem> get items => {..._items};
+
+  int get itemRecursiveTotalCount {
+    int total = 0;
+    _items.forEach((key, value) {
+      total += value.quantity;
+    });
+    return total;
+  }
 
   int get itemCount => _items.length;
 
@@ -47,18 +56,4 @@ class CartProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
-}
-
-class CartItem {
-  final String id;
-  final String title;
-  final int quantity;
-  final double price;
-
-  CartItem({
-    @required this.id,
-    @required this.price,
-    @required this.quantity,
-    @required this.title,
-  });
 }
