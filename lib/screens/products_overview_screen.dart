@@ -1,8 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:srShop/providers/cart_provider.dart';
-import 'package:srShop/screens/cart_detail_screen.dart';
-import 'package:srShop/widgets/badge.dart';
+import 'package:srShop/widgets/badge_builder.dart';
 import '../widgets/products_grid.dart';
 
 enum FilterOptions {
@@ -21,6 +20,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool popupSelection = true;
   @override
   Widget build(BuildContext context) {
+    print(Platform.isWindows);
     return Scaffold(
       drawer: Drawer(),
       appBar: AppBar(
@@ -49,22 +49,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               ),
             ],
           ),
-          Consumer<CartProvider>(
-            builder: (context, value, child) {
-              return Badge(
-                child: child,
-                value: value.itemCount.toString(),
-              );
-            },
-            child: IconButton(
-              icon: Icon(
-                Icons.shopping_cart,
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, CartDetailScreen.route);
-              },
-            ),
-          ),
+          BadgeBuilder(),
         ],
       ),
       body: Column(

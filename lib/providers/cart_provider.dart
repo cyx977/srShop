@@ -14,6 +14,11 @@ class CartProvider extends ChangeNotifier {
     return total;
   }
 
+  void removeFromCart(String productId) {
+    _items.remove(productId);
+    notifyListeners();
+  }
+
   void addItem({
     @required String productId,
     @required String title,
@@ -40,7 +45,6 @@ class CartProvider extends ChangeNotifier {
         ),
       );
     }
-
     notifyListeners();
   }
 }

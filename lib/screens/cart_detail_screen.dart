@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:srShop/providers/cart_provider.dart';
+import 'package:srShop/widgets/badge_builder.dart';
 import 'package:srShop/widgets/cart_item.dart';
 
 class CartDetailScreen extends StatelessWidget {
@@ -10,6 +11,9 @@ class CartDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Your Cart"),
+        actions: [
+          BadgeBuilder(),
+        ],
       ),
       body: Column(
         children: [
@@ -60,6 +64,7 @@ class CartDetailScreen extends StatelessWidget {
                     price: cartData[index].price,
                     quantity: cartData[index].quantity,
                     title: cartData[index].title,
+                    productId: cartProvider.items.keys.toList()[index],
                   ),
                   itemCount: cartProvider.itemCount,
                 );
