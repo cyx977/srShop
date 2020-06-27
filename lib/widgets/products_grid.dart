@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/products_provider.dart';
@@ -12,7 +13,8 @@ class ProductsGrid extends StatelessWidget {
       builder: (context, provider, child) => GridView.builder(
         padding: const EdgeInsets.all(10.0),
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 500,
+          maxCrossAxisExtent:
+              kIsWeb ? MediaQuery.of(context).size.width * 0.50 : 500,
           childAspectRatio: 3 / 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,

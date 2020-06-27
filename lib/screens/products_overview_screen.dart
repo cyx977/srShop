@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:downloads_path_provider/downloads_path_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:srShop/widgets/badge_builder.dart';
 import '../widgets/products_grid.dart';
@@ -20,7 +22,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   bool popupSelection = true;
   @override
   Widget build(BuildContext context) {
-    print(Platform.isWindows);
     return Scaffold(
       drawer: Drawer(),
       appBar: AppBar(
