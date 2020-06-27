@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:srShop/providers/cart_provider.dart';
-import 'package:srShop/widgets/badge_builder.dart';
+import 'package:srShop/providers/order_provider.dart';
 import 'package:srShop/widgets/cart_item.dart';
+import 'package:srShop/widgets/drawer_widget.dart';
 
 class CartDetailScreen extends StatelessWidget {
   static const String route = "/cart-detail";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: DrawerBuilder(),
       appBar: AppBar(
         title: Text("Your Cart"),
         actions: [
-          BadgeBuilder(),
+          IconButton(
+            icon: Icon(
+              Icons.delete_sweep,
+            ),
+            onPressed: () {
+              Provider.of<CartProvider>(context, listen: false).clear();
+            },
+          ),
         ],
       ),
       body: Column(
@@ -45,10 +54,28 @@ class CartDetailScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  FlatButton(
-                    child: Text("Order Now"),
-                    onPressed: () {},
-                    textColor: Theme.of(context).primaryColor,
+                  Consumer<OrderProvider>(
+                    builder: (context, order, child) {
+                      return Consumer<CartProvider>(
+                        builder: (context, cart, child) {
+                          return FlatButton(
+                            child: Text("Order Now"),
+                            onPressed: () {
+                              if (cart.getTotal > 0) {
+                                order.addOrder(
+                                  cartItems: cart.items.values.toList(),
+                                  total: cart.getTotal,
+                                );
+                                cart.clear();
+                              } else {
+                                print("cart empty");
+                              }
+                            },
+                            textColor: Theme.of(context).primaryColor,
+                          );
+                        },
+                      );
+                    },
                   )
                 ],
               ),

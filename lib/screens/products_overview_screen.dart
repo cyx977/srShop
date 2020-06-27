@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:srShop/widgets/badge_builder.dart';
+import 'package:srShop/widgets/drawer_widget.dart';
 import '../widgets/products_grid.dart';
 
 enum FilterOptions {
@@ -19,7 +20,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: DrawerBuilder(),
       appBar: AppBar(
         title: Text("Casual"),
         actions: <Widget>[

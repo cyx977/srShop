@@ -6,7 +6,7 @@ class OrderProvider with ChangeNotifier {
   List<OrderItem> _orders = [];
   List<OrderItem> get orders => [..._orders];
 
-  void addOrder(List<CartItem> cartItems, double total) {
+  void addOrder({@required List<CartItem> cartItems, @required double total}) {
     _orders.insert(
       0,
       OrderItem(
@@ -16,5 +16,9 @@ class OrderProvider with ChangeNotifier {
         products: cartItems,
       ),
     );
+    print(_orders[0].amount);
+    notifyListeners();
   }
+
+  int get orderCount => _orders.length;
 }

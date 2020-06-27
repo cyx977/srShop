@@ -50,16 +50,38 @@ class ProductItem extends StatelessWidget {
             ),
             trailing: Consumer<CartProvider>(
               builder: (context, value, child) {
-                return IconButton(
-                  icon: Icon(Icons.add_shopping_cart),
-                  onPressed: () {
-                    value.addItem(
-                      productId: productProvider.id,
-                      title: productProvider.title,
-                      price: productProvider.price,
-                    );
-                  },
-                  color: Theme.of(context).accentColor,
+                return Container(
+                  // child: IconButton(
+                  //   icon: Icon(Icons.add_shopping_cart),
+                  //   onPressed: () {
+                  //     value.addItem(
+                  //       productId: productProvider.id,
+                  //       title: productProvider.title,
+                  //       price: productProvider.price,
+                  //     );
+                  //   },
+                  //   color: Theme.of(context).accentColor,
+                  // ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        value.addItem(
+                          productId: productProvider.id,
+                          title: productProvider.title,
+                          price: productProvider.price,
+                        );
+                      },
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        child: Icon(
+                          Icons.add_shopping_cart,
+                          color: Theme.of(context).accentColor,
+                        ),
+                      ),
+                    ),
+                  ),
                 );
               },
             ),

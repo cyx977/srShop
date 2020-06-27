@@ -15,6 +15,11 @@ class CartProvider extends ChangeNotifier {
 
   int get itemCount => _items.length;
 
+  void clear() {
+    _items = {};
+    notifyListeners();
+  }
+
   double get getTotal {
     double total = 0;
     _items.forEach((key, value) {
