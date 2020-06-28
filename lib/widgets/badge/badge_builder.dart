@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:srShop/providers/cart_provider.dart';
-import 'package:srShop/screens/cart_detail_screen.dart';
+import '../../providers/cart_provider.dart';
+import '../../screens/cart_detail_screen.dart';
 
-import './badge.dart';
+import 'badge.dart';
 
 class BadgeBuilder extends StatelessWidget {
   const BadgeBuilder({

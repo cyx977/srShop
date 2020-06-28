@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:srShop/widgets/badge_builder.dart';
-import 'package:srShop/widgets/drawer_widget.dart';
-import '../widgets/products_grid.dart';
+import '../widgets/badge/badge_builder.dart';
+import '../widgets/drawer/drawer_widget.dart';
+import '../widgets/product/products_grid.dart';
 
 enum FilterOptions {
   All,
