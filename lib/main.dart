@@ -30,8 +30,16 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'SR Shop',
         theme: ThemeData(
+          pageTransitionsTheme: PageTransitionsTheme(
+              builders: <TargetPlatform, PageTransitionsBuilder>{
+                TargetPlatform.android: ZoomPageTransitionsBuilder(),
+                TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+                TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
+                TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+                TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
+              }),
           primarySwatch: Colors.cyan,
-          accentColor: Colors.deepOrange,
+          accentColor: Colors.amber,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           colorScheme: ColorScheme(
             primary: Colors.red,

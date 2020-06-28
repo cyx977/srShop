@@ -51,20 +51,10 @@ class ProductItem extends StatelessWidget {
             trailing: Consumer<CartProvider>(
               builder: (context, value, child) {
                 return Container(
-                  // child: IconButton(
-                  //   icon: Icon(Icons.add_shopping_cart),
-                  //   onPressed: () {
-                  //     value.addItem(
-                  //       productId: productProvider.id,
-                  //       title: productProvider.title,
-                  //       price: productProvider.price,
-                  //     );
-                  //   },
-                  //   color: Theme.of(context).accentColor,
-                  // ),
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
+                      splashColor: Colors.green,
                       onTap: () {
                         value.addItem(
                           productId: productProvider.id,
@@ -87,7 +77,7 @@ class ProductItem extends StatelessWidget {
             ),
             title: Center(
               child: Text(
-                "${productProvider.title} \t \$ ${productProvider.price}",
+                "${productProvider.title} \t NRS ${productProvider.price}",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
