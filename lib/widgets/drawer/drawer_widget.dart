@@ -31,14 +31,14 @@ class DrawerBuilder extends StatelessWidget {
                   icon: Icons.home,
                 ),
                 DrawerMenuBuilder(
-                  title: "Orders Screen",
-                  route: OrderScreen.route,
-                  icon: Icons.airport_shuttle,
-                ),
-                DrawerMenuBuilder(
                   title: "Cart",
                   route: CartDetailScreen.route,
                   icon: Icons.shopping_cart,
+                ),
+                DrawerMenuBuilder(
+                  title: "Orders Screen",
+                  route: OrderScreen.route,
+                  icon: Icons.airport_shuttle,
                 ),
               ],
             )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:srShop/screens/order_screen.dart';
 import '../providers/cart_provider.dart';
 import '../providers/order_provider.dart';
 import '../widgets/cart/cart_item.dart';
@@ -20,6 +21,14 @@ class CartDetailScreen extends StatelessWidget {
             ),
             onPressed: () {
               Provider.of<CartProvider>(context, listen: false).clear();
+            },
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.airport_shuttle,
+            ),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, OrderScreen.route);
             },
           ),
         ],
