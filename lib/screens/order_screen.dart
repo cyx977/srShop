@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:srShop/widgets/badge/badge_builder.dart';
 import 'package:srShop/widgets/order/order_item.dart';
 import '../widgets/drawer/drawer_widget.dart';
 import '../providers/order_provider.dart';
@@ -12,6 +13,9 @@ class OrderScreen extends StatelessWidget {
       drawer: DrawerBuilder(),
       appBar: AppBar(
         title: Text("Your Orders"),
+        actions: [
+          BadgeBuilder(),
+        ],
       ),
       body: Consumer<OrderProvider>(
         builder: (context, value, child) {

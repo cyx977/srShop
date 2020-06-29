@@ -31,7 +31,6 @@ class CartDetailScreen extends StatelessWidget {
               Navigator.pushReplacementNamed(context, OrderScreen.route);
             },
           ),
-          DrawerTrigger()
         ],
       ),
       body: Column(
@@ -110,31 +109,6 @@ class CartDetailScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class DrawerTrigger extends StatelessWidget {
-  const DrawerTrigger({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.ac_unit),
-      onPressed: () {
-        // Scaffold.of(context).openDrawer();
-        Scaffold.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.green,
-          content: Container(
-            height: MediaQuery.of(context).size.height * 0.02,
-            child: Center(
-              child: Text("Asdf"),
-            ),
-          ),
-        ));
-      },
     );
   }
 }

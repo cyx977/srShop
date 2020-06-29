@@ -18,10 +18,18 @@ class CartDetailItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      onDismissed: (direction) =>
-          Provider.of<CartProvider>(context, listen: false)
-              .removeFromCart(productId),
-      //
+      onDismissed: (direction) {
+        var selection = showGeneralDialog(
+          context: context,
+          pageBuilder: (context, an1, an2) {
+            return Text("asd");
+          },
+        );
+        Provider.of<CartProvider>(
+          context,
+          listen: false,
+        ).removeFromCart(productId);
+      },
       direction: DismissDirection.endToStart,
       // direction: DismissDirection.startToEnd,
       background: Container(
