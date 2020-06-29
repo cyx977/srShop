@@ -16,7 +16,6 @@ class OrderProvider with ChangeNotifier {
         products: cartItems,
       ),
     );
-    print(_orders[0].amount);
     notifyListeners();
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:srShop/providers/app_detail.dart';
 import 'package:srShop/providers/cart_provider.dart';
 import 'package:srShop/providers/order_provider.dart';
 import 'package:srShop/screens/cart_detail_screen.dart';
@@ -17,6 +18,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        Provider.value(
+          value: const AppDetail(
+            appName: "Nepali JhOlay",
+            appUrl: "www.google.com",
+          ),
+        ),
         ChangeNotifierProvider(
           create: (context) => ProductsProvider(),
         ),

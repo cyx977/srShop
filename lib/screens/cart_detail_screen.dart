@@ -43,7 +43,7 @@ class CartDetailScreen extends StatelessWidget {
                     label: Consumer<CartProvider>(
                       builder: (context, value, _) {
                         return Text(
-                          "${value.getTotal}",
+                          "${value.getTotal.toStringAsFixed(2)}",
                           style: TextStyle(
                             color: Theme.of(context)
                                 .primaryTextTheme
@@ -68,7 +68,7 @@ class CartDetailScreen extends StatelessWidget {
                                 );
                                 cart.clear();
                               } else {
-                                print("cart empty");
+                                //cart empty
                               }
                             },
                             textColor: Theme.of(context).primaryColor,

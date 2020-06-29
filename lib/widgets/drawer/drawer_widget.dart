@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:srShop/providers/app_detail.dart';
 import '../../screens/cart_detail_screen.dart';
 import '../../screens/order_screen.dart';
 import '../../screens/products_overview_screen.dart';
@@ -13,21 +15,30 @@ class DrawerBuilder extends StatelessWidget {
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppBar(title: Text("Heyyyy!")),
-            Divider(),
+            AppBar(
+              title: Consumer<AppDetail>(
+                builder: (context, value, child) => Text("${value.appName}"),
+              ),
+            ),
+            Divider(
+              height: MediaQuery.of(context).size.height * 0.10,
+            ),
             Column(
               children: [
                 DrawerMenuBuilder(
                   title: "Home",
                   route: ProductsOverviewScreen.route,
+                  icon: Icons.home,
                 ),
                 DrawerMenuBuilder(
                   title: "Orders Screen",
                   route: OrderScreen.route,
+                  icon: Icons.airport_shuttle,
                 ),
                 DrawerMenuBuilder(
                   title: "Cart",
                   route: CartDetailScreen.route,
+                  icon: Icons.shopping_cart,
                 ),
               ],
             )
