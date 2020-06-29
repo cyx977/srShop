@@ -60,6 +60,21 @@ class ProductItem extends StatelessWidget {
                           title: productProvider.title,
                           price: productProvider.price,
                         );
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Container(
+                              height: MediaQuery.of(context).size.height * 0.05,
+                              child: Text(
+                                "Added ${productProvider.title} to cart",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
                       },
                       child: Container(
                         height: 100,

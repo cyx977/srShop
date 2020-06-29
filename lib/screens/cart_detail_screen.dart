@@ -36,12 +36,6 @@ class CartDetailScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          RaisedButton(
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-            child: Text("drawer open"),
-          ),
           Card(
             margin: EdgeInsets.all(15.0),
             child: Padding(
@@ -130,7 +124,16 @@ class DrawerTrigger extends StatelessWidget {
     return IconButton(
       icon: Icon(Icons.ac_unit),
       onPressed: () {
-        Scaffold.of(context).openDrawer();
+        // Scaffold.of(context).openDrawer();
+        Scaffold.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.green,
+          content: Container(
+            height: MediaQuery.of(context).size.height * 0.02,
+            child: Center(
+              child: Text("Asdf"),
+            ),
+          ),
+        ));
       },
     );
   }
