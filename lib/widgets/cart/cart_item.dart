@@ -19,16 +19,33 @@ class CartDetailItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       onDismissed: (direction) {
-        var selection = showGeneralDialog(
-          context: context,
-          pageBuilder: (context, an1, an2) {
-            return Text("asd");
-          },
-        );
         Provider.of<CartProvider>(
           context,
           listen: false,
         ).removeFromCart(productId);
+      },
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Are you Sure ?"),
+            content: Text("Asdf"),
+            actions: [
+              FlatButton(
+                child: Text("Yes"),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+              FlatButton(
+                child: Text("No"),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+            ],
+          ),
+        );
       },
       direction: DismissDirection.endToStart,
       // direction: DismissDirection.startToEnd,
