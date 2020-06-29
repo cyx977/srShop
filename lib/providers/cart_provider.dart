@@ -28,6 +28,25 @@ class CartProvider extends ChangeNotifier {
     return total;
   }
 
+  void removeSingleFromCart(String productId) {
+    if (_items.containsKey(productId)) {
+      if (_items[productId].quantity > 1) {
+        _items.update(
+          productId,
+          (value) => CartItem(
+            id: value.id,
+            price: value.price,
+            title: value.title,
+            quantity: value.quantity - 1,
+          ),
+        );
+      } else {
+        _items.remove(productId);
+      }
+      notifyListeners();
+    }
+  }
+
   void removeFromCart(String productId) {
     _items.remove(productId);
     notifyListeners();

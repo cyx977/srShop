@@ -62,7 +62,18 @@ class ProductItem extends StatelessWidget {
                         );
                         Scaffold.of(context).showSnackBar(
                           SnackBar(
-                            backgroundColor: Colors.green,
+                            // backgroundColor: Colors.red,
+                            action: SnackBarAction(
+                              label: "undo",
+                              textColor: Colors.white,
+                              onPressed: () {
+                                Provider.of<CartProvider>(
+                                  context,
+                                  listen: false,
+                                ).removeSingleFromCart(productProvider.id);
+                              },
+                            ),
+                            duration: Duration(seconds: 2),
                             content: Container(
                               height: MediaQuery.of(context).size.height * 0.05,
                               child: Text(
