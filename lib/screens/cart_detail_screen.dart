@@ -17,7 +17,7 @@ class CartDetailScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(
-              Icons.delete_sweep,
+              Icons.cancel,
             ),
             onPressed: () {
               Provider.of<CartProvider>(context, listen: false).clear();
@@ -31,10 +31,17 @@ class CartDetailScreen extends StatelessWidget {
               Navigator.pushReplacementNamed(context, OrderScreen.route);
             },
           ),
+          DrawerTrigger()
         ],
       ),
       body: Column(
         children: [
+          RaisedButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            child: Text("drawer open"),
+          ),
           Card(
             margin: EdgeInsets.all(15.0),
             child: Padding(
@@ -109,6 +116,22 @@ class CartDetailScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class DrawerTrigger extends StatelessWidget {
+  const DrawerTrigger({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.ac_unit),
+      onPressed: () {
+        Scaffold.of(context).openDrawer();
+      },
     );
   }
 }
