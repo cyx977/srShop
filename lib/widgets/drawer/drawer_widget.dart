@@ -7,22 +7,26 @@ import '../../const.dart';
 class DrawerBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var appBar = AppBar(
+      title: Consumer<AppDetail>(
+        builder: (context, value, child) => Text("${value.appName}"),
+      ),
+    );
     return Drawer(
       elevation: 5,
       child: SafeArea(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppBar(
-              title: Consumer<AppDetail>(
-                builder: (context, value, child) => Text("${value.appName}"),
-              ),
-            ),
+            appBar,
             Divider(
-              height: MediaQuery.of(context).size.height * 0.10,
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height) *
+                  0.10,
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 0.60,
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height) *
+                  0.60,
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   List<String> routesList = routeConfig.keys.toList();

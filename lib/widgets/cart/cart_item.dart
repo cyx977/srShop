@@ -29,7 +29,7 @@ class CartDetailItem extends StatelessWidget {
           context: context,
           builder: (context) => AlertDialog(
             title: Text(
-              "Are you Sure ?",
+              "Are you Sure you want to remove $quantity $title from the cart ??",
               style: TextStyle(
                 fontSize: 25,
                 fontWeight: FontWeight.bold,

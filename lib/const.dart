@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:srShop/screens/cart_detail_screen.dart';
 import 'package:srShop/screens/order_screen.dart';
 import 'package:srShop/screens/products_overview_screen.dart';
-import 'package:srShop/screens/user_products_screen.dart';
+import 'package:srShop/screens/manage_products_screen.dart';
 
 class RouteData {
   String title;
@@ -15,5 +15,6 @@ Map<String, RouteData> routeConfig = {
   CartDetailScreen.route: RouteData(title: "Cart", icon: Icons.shopping_cart),
   OrderScreen.route:
       RouteData(title: "Orders Screen", icon: Icons.airport_shuttle),
-  UserProductScreen.route: RouteData(title: "Manage Products", icon: Icons.edit)
+  ManageProductScreen.route:
+      RouteData(title: "Manage Products", icon: Icons.edit)
 };

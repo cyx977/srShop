@@ -18,9 +18,60 @@ class CartDetailScreen extends StatelessWidget {
           IconButton(
             icon: Icon(
               Icons.cancel,
+              color: Theme.of(context).errorColor.withOpacity(0.7),
             ),
             onPressed: () {
-              Provider.of<CartProvider>(context, listen: false).clear();
+              CartProvider cartProvider =
+                  Provider.of<CartProvider>(context, listen: false);
+              if (cartProvider.itemRecursiveTotalCount > 0) {
+                String removalString = cartProvider.itemRecursiveTotalCount == 1
+                    ? "1 Item"
+                    : "all ${cartProvider.itemRecursiveTotalCount} Items";
+                var clear = showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(
+                            "Are you Sure You want to clear $removalString from the Cart ?"),
+                        actions: [
+                          FlatButton(
+                            child: Text("Yes"),
+                            onPressed: () {
+                              Navigator.pop(context, true);
+                            },
+                          ),
+                          FlatButton(
+                            child: Text("No"),
+                            onPressed: () {
+                              Navigator.pop(context, false);
+                            },
+                          )
+                        ],
+                      );
+                    });
+                clear.then((result) {
+                  if (result == true) {
+                    Provider.of<CartProvider>(context, listen: false).clear();
+                  }
+                });
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text("Cart is empty"),
+                      actions: [
+                        FlatButton(
+                          child: Text("Close"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
+                    );
+                  },
+                );
+              }
             },
           ),
           IconButton(

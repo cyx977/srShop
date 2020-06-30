@@ -21,7 +21,12 @@ class DrawerMenuBuilder extends StatelessWidget {
         color: Theme.of(context).accentColor,
         child: ListTile(
           leading: Icon(icon),
-          title: Text(title),
+          title: Text(
+            title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     );

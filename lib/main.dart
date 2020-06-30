@@ -6,7 +6,7 @@ import 'package:srShop/providers/order_provider.dart';
 import 'package:srShop/screens/cart_detail_screen.dart';
 import 'package:srShop/screens/order_screen.dart';
 import 'package:srShop/screens/product_detail_screen.dart';
-import 'package:srShop/screens/user_products_screen.dart';
+import 'package:srShop/screens/manage_products_screen.dart';
 import './providers/products_provider.dart';
 import './screens/products_overview_screen.dart';
 
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
             primary: Colors.red,
             primaryVariant: Colors.black,
             secondary: Colors.green,
-            secondaryVariant: Colors.red,
+            secondaryVariant: Color.fromRGBO(112, 202, 237, 1),
             surface: Colors.red,
             background: Colors.red,
             error: Colors.red,
@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
           ProductDetailScreen.route: (context) => ProductDetailScreen(),
           CartDetailScreen.route: (context) => CartDetailScreen(),
           OrderScreen.route: (context) => OrderScreen(),
-          UserProductScreen.route: (context) => UserProductScreen(),
+          ManageProductScreen.route: (context) => ManageProductScreen(),
         },
       ),
     );
