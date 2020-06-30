@@ -29,8 +29,8 @@ class DrawerBuilder extends StatelessWidget {
                   0.60,
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  List<String> routesList = routeConfig.keys.toList();
-                  List<RouteData> routeData = routeConfig.values.toList();
+                  List<String> routesList = menuItems.keys.toList();
+                  List<RouteData> routeData = menuItems.values.toList();
                   if (routeData[index].addToMenu == false) {
                     return null;
                   }
@@ -40,29 +40,9 @@ class DrawerBuilder extends StatelessWidget {
                     title: routeData[index].title,
                   );
                 },
-                itemCount: routeConfig.length,
+                itemCount: drawerMenuLength,
               ),
             ),
-            // DrawerMenuBuilder(
-            //   title: "Home",
-            //   route: ProductsOverviewScreen.route,
-            //   icon: Icons.home,
-            // ),
-            // DrawerMenuBuilder(
-            //   title: "Cart",
-            //   route: CartDetailScreen.route,
-            //   icon: Icons.shopping_cart,
-            // ),
-            // DrawerMenuBuilder(
-            //   title: "Orders Screen",
-            //   route: OrderScreen.route,
-            //   icon: Icons.airport_shuttle,
-            // ),
-            // DrawerMenuBuilder(
-            //   title: "Manage Products",
-            //   route: UserProductScreen.route,
-            //   icon: Icons.edit,
-            // ),
           ],
         ),
       ),

@@ -53,6 +53,23 @@ Map<String, RouteData> routeConfig = {
   ),
 };
 
+Map<String, RouteData> get menuItems {
+  Map<String, RouteData> finalMenuItems;
+  finalMenuItems = Map.from(routeConfig);
+  finalMenuItems.removeWhere((key, value) => value.addToMenu == false);
+  return finalMenuItems;
+}
+
+int get drawerMenuLength {
+  int length = 0;
+  routeConfig.forEach((key, value) {
+    if (value.addToMenu) {
+      length++;
+    }
+  });
+  return length;
+}
+
 final themeData = ThemeData(
   pageTransitionsTheme: PageTransitionsTheme(
     builders: <TargetPlatform, PageTransitionsBuilder>{
