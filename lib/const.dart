@@ -48,7 +48,7 @@ Map<String, RouteData> routeConfig = {
   EditProductScreen.route: RouteData(
     icon: Icons.edit,
     title: "Edit Product",
-    addToMenu: false,
+    addToMenu: true,
     instance: EditProductScreen(),
   ),
 };
