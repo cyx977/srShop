@@ -1,20 +1,98 @@
 import 'package:flutter/material.dart';
 import 'package:srShop/screens/cart_detail_screen.dart';
+import 'package:srShop/screens/edit_product_screen.dart';
 import 'package:srShop/screens/order_screen.dart';
+import 'package:srShop/screens/product_detail_screen.dart';
 import 'package:srShop/screens/products_overview_screen.dart';
 import 'package:srShop/screens/manage_products_screen.dart';
 
 class RouteData {
-  String title;
-  IconData icon;
-  RouteData({@required this.title, @required this.icon});
+  final String title;
+  final IconData icon;
+  final bool addToMenu;
+  var instance;
+  RouteData(
+      {@required this.title,
+      @required this.icon,
+      this.addToMenu = true,
+      @required this.instance});
 }
 
 Map<String, RouteData> routeConfig = {
-  ProductsOverviewScreen.route: RouteData(icon: Icons.home, title: "Home"),
-  CartDetailScreen.route: RouteData(title: "Cart", icon: Icons.shopping_cart),
-  OrderScreen.route:
-      RouteData(title: "Orders Screen", icon: Icons.airport_shuttle),
-  ManageProductScreen.route:
-      RouteData(title: "Manage Products", icon: Icons.edit)
+  ProductsOverviewScreen.route: RouteData(
+    icon: Icons.home,
+    title: "Home",
+    instance: ProductsOverviewScreen(),
+  ),
+  CartDetailScreen.route: RouteData(
+    title: "Cart",
+    icon: Icons.shopping_cart,
+    instance: CartDetailScreen(),
+  ),
+  OrderScreen.route: RouteData(
+    title: "Orders Screen",
+    icon: Icons.airport_shuttle,
+    instance: OrderScreen(),
+  ),
+  ManageProductScreen.route: RouteData(
+    title: "Manage Products",
+    icon: Icons.edit,
+    instance: ManageProductScreen(),
+  ),
+  ProductDetailScreen.route: RouteData(
+    icon: Icons.details,
+    instance: ProductDetailScreen(),
+    title: "Product Detail",
+    addToMenu: false,
+  ),
+  EditProductScreen.route: RouteData(
+    icon: Icons.edit,
+    title: "Edit Product",
+    addToMenu: false,
+    instance: EditProductScreen(),
+  ),
 };
+
+final themeData = ThemeData(
+  pageTransitionsTheme: PageTransitionsTheme(
+    builders: <TargetPlatform, PageTransitionsBuilder>{
+      TargetPlatform.android: ZoomPageTransitionsBuilder(),
+      TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+      TargetPlatform.linux: FadeUpwardsPageTransitionsBuilder(),
+      TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+      TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
+    },
+  ),
+  snackBarTheme: SnackBarThemeData(
+    backgroundColor: Colors.green,
+    actionTextColor: Colors.grey,
+    contentTextStyle: TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+    ),
+    behavior: SnackBarBehavior.floating,
+  ),
+  primarySwatch: Colors.cyan,
+  accentColor: Colors.amber,
+  visualDensity: VisualDensity.adaptivePlatformDensity,
+  colorScheme: ColorScheme(
+    primary: Colors.red,
+    primaryVariant: Colors.black,
+    secondary: Colors.green,
+    secondaryVariant: Color.fromRGBO(112, 202, 237, 1),
+    surface: Colors.red,
+    background: Colors.red,
+    error: Colors.red,
+    onPrimary: Colors.red,
+    onSecondary: Colors.red,
+    onSurface: Colors.red,
+    onBackground: Colors.red,
+    onError: Colors.red,
+    brightness: Brightness.light,
+  ),
+);
+
+final Map<String, Widget Function(BuildContext)> routes =
+    routeConfig.map((key, value) {
+  return MapEntry(key, (context) => value.instance);
+});

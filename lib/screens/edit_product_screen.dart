@@ -14,7 +14,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
       appBar: AppBar(
         title: Text("Edit Product"),
       ),
-      body: Container(),
+      body: Form(
+        child: ListView(
+          children: [
+            TextFormField(),
+          ],
+        ),
+      ),
     );
   }
 }

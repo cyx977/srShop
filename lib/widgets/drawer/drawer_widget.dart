@@ -31,6 +31,9 @@ class DrawerBuilder extends StatelessWidget {
                 itemBuilder: (context, index) {
                   List<String> routesList = routeConfig.keys.toList();
                   List<RouteData> routeData = routeConfig.values.toList();
+                  if (routeData[index].addToMenu == false) {
+                    return null;
+                  }
                   return DrawerMenuBuilder(
                     icon: routeData[index].icon,
                     route: routesList[index],
