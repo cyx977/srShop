@@ -28,8 +28,14 @@ class CartDetailItem extends StatelessWidget {
         return showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text("Are you Sure ?"),
-            content: Text("Asdf"),
+            title: Text(
+              "Are you Sure ?",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: Text("You can again add these items to the cart"),
             actions: [
               FlatButton(
                 child: Text("Yes"),
