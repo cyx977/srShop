@@ -32,12 +32,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _imageUrlListener() {
     if (!_imageUrlFocusNode.hasFocus) {
-      print("lost focus");
+      setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    print("building");
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Product"),
