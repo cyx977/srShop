@@ -19,8 +19,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _descriptionNode.dispose();
     _imageUrlFocusNode.dispose();
     _imageUrlController.dispose();
+    _imageUrlFocusNode.removeListener(_imageUrlListener);
     print("disposing focusnodes");
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    _imageUrlFocusNode.addListener(_imageUrlListener);
+    super.initState();
+  }
+
+  void _imageUrlListener() {
+    if (!_imageUrlFocusNode.hasFocus) {
+      print("lost focus");
+    }
   }
 
   @override
