@@ -11,10 +11,12 @@ class EditProductScreen extends StatefulWidget {
 class _EditProductScreenState extends State<EditProductScreen> {
   final _priceNode = FocusNode();
   final _descriptionNode = FocusNode();
+  final _imageUrlController = TextEditingController();
   @override
   void dispose() {
     _priceNode.dispose();
     _descriptionNode.dispose();
+    _imageUrlController.dispose();
     print("disposing focusnodes");
     super.dispose();
   }
@@ -52,6 +54,30 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 focusNode: _descriptionNode,
                 maxLines: 3,
               ),
+              Row(
+                children: [
+                  Container(
+                    width: 100,
+                    height: 100,
+                    margin: EdgeInsets.only(
+                      top: 8,
+                      right: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    child: Container(),
+                  ),
+                  // TextFormField(
+                  //   decoration: InputDecoration(labelText: "Image Url"),
+                  //   keyboardType: TextInputType.url,
+                  //   maxLines: 3,
+                  // ),
+                ],
+              )
               //             final String id;
               // final String title;
               // final String description;
@@ -60,7 +86,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
               // bool isFavourite;
             ],
           ),
-          autovalidate: true,
         ),
       ),
     );
