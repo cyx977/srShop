@@ -10,6 +10,15 @@ class EditProductScreen extends StatefulWidget {
 
 class _EditProductScreenState extends State<EditProductScreen> {
   final _priceNode = FocusNode();
+  final _descriptionNode = FocusNode();
+  @override
+  void dispose() {
+    _priceNode.dispose();
+    _descriptionNode.dispose();
+    print("disposing focusnodes");
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,21 +32,32 @@ class _EditProductScreenState extends State<EditProductScreen> {
           child: ListView(
             children: [
               TextFormField(
-                initialValue: "9840095714",
-                textInputAction: TextInputAction.next,
-                decoration: InputDecoration(),
-                onFieldSubmitted: (value) => FocusScope.of(context).nextFocus(),
-              ),
-              TextFormField(
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (value) => FocusScope.of(context).nextFocus(),
-                focusNode: _priceNode,
-              ),
-              TextFormField(
+                decoration: InputDecoration(labelText: "Title"),
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (value) =>
                     FocusScope.of(context).requestFocus(_priceNode),
               ),
+              TextFormField(
+                decoration: InputDecoration(labelText: "Price"),
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.number,
+                focusNode: _priceNode,
+                onFieldSubmitted: (value) =>
+                    FocusScope.of(context).requestFocus(_descriptionNode),
+                //todo dispose focusnode
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: "Description"),
+                keyboardType: TextInputType.multiline,
+                focusNode: _descriptionNode,
+                maxLines: 3,
+              ),
+              //             final String id;
+              // final String title;
+              // final String description;
+              // final double price;
+              // final String imageUrl;
+              // bool isFavourite;
             ],
           ),
           autovalidate: true,

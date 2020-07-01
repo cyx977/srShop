@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../providers/product_provider.dart';
 import '../../providers/products_provider.dart';
-import 'product_item.dart';
+import './product_item.dart';
 
 class ProductsGrid extends StatelessWidget {
   final popupSelection;
@@ -20,7 +21,7 @@ class ProductsGrid extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         itemBuilder: (_, index) {
-          var products = popupSelection == true
+          List<ProductProvider> products = popupSelection == true
               ? provider.items.toList()
               : provider.items
                   .where((element) => element.isFavourite == true)
