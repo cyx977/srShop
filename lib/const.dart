@@ -11,11 +11,12 @@ class RouteData {
   final IconData icon;
   final bool addToMenu;
   var instance;
-  RouteData(
-      {@required this.title,
-      @required this.icon,
-      this.addToMenu = true,
-      @required this.instance});
+  RouteData({
+    @required this.title,
+    @required this.icon,
+    this.addToMenu = true,
+    @required this.instance,
+  });
 }
 
 Map<String, RouteData> routeConfig = {

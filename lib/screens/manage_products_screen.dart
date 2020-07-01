@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:srShop/providers/products_provider.dart';
+import 'package:srShop/screens/edit_product_screen.dart';
 import 'package:srShop/widgets/drawer/drawer_widget.dart';
 import 'package:srShop/widgets/product/manage_product.dart';
 
@@ -11,6 +12,14 @@ class ManageProductScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Manage Products"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, EditProductScreen.route);
+            },
+          )
+        ],
       ),
       drawer: DrawerBuilder(),
       body: Container(

@@ -8,7 +8,7 @@ class ProductsProvider with ChangeNotifier {
       id: 'p1',
       title: 'Red Shirt',
       description: 'A red shirt - it is pretty red!',
-      price: 29.99,
+      price: 495,
       imageUrl:
           'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
     ),
@@ -16,7 +16,7 @@ class ProductsProvider with ChangeNotifier {
       id: 'p2',
       title: 'Trousers',
       description: 'A nice pair of trousers.',
-      price: 59.99,
+      price: 600,
       imageUrl:
           'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Trousers%2C_dress_%28AM_1960.022-8%29.jpg/512px-Trousers%2C_dress_%28AM_1960.022-8%29.jpg',
     ),
@@ -24,7 +24,7 @@ class ProductsProvider with ChangeNotifier {
       id: 'p3',
       title: 'Yellow Scarf',
       description: 'Warm and cozy - exactly what you need for the winter.',
-      price: 19.99,
+      price: 299,
       imageUrl:
           'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg',
     ),
@@ -32,7 +32,7 @@ class ProductsProvider with ChangeNotifier {
       id: 'p4',
       title: 'A Pan',
       description: 'Prepare any meal you want.',
-      price: 49.99,
+      price: 1200,
       imageUrl:
           'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
     ),
@@ -40,7 +40,7 @@ class ProductsProvider with ChangeNotifier {
       id: 'p5',
       title: 'Purple Shirt',
       description: 'A purple shirt - it is pretty geek!',
-      price: 29.99,
+      price: 775,
       imageUrl:
           'https://explosiontshirt.com/wp-content/uploads/2018/10/men-purple-tshirt-gildan-adult-front1.jpg',
     ),
@@ -48,7 +48,7 @@ class ProductsProvider with ChangeNotifier {
       id: 'p6',
       title: 'Brown Trousers',
       description: 'A nice pair of trousers.',
-      price: 250.73,
+      price: 900,
       imageUrl:
           'https://contents.mediadecathlon.com/p1641091/kf861c49b737a4d629aa737a501aac642/1641091_default.jpg?format=auto&quality=60&f=800x0',
     ),
