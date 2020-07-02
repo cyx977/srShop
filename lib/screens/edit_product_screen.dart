@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:srShop/models/mutableProduct_model.dart';
 import 'package:srShop/widgets/drawer/drawer_widget.dart';
 
 class EditProductScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _imageUrlFocusNode = FocusNode();
   final _imageUrlController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  var _editedProduct = MutableProduct();
   @override
   void dispose() {
     _priceFocusNode.dispose();
@@ -40,6 +42,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   void _submitForm() {
     _formKey.currentState.save();
+    print(_editedProduct.title);
+    print(_editedProduct.price);
+    print(_editedProduct.id);
+    print(_editedProduct.description);
+    print(_editedProduct.imageUrl);
   }
 
   @override
@@ -62,7 +69,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   onFieldSubmitted: (value) =>
                       FocusScope.of(context).requestFocus(_priceFocusNode),
                   onSaved: (newValue) {
-                    print(newValue);
+                    _editedProduct.title = newValue;
                   },
                 ),
                 TextFormField(
@@ -72,13 +79,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   focusNode: _priceFocusNode,
                   onFieldSubmitted: (value) => FocusScope.of(context)
                       .requestFocus(_descriptionFocusNode),
-                  //todo dispose focusnode
+                  onSaved: (newValue) {
+                    _editedProduct.price = double.parse(newValue);
+                  },
                 ),
                 TextFormField(
                   decoration: InputDecoration(labelText: "Description"),
                   keyboardType: TextInputType.multiline,
                   focusNode: _descriptionFocusNode,
                   maxLines: 3,
+                  onSaved: (newValue) {
+                    _editedProduct.description = newValue;
+                  },
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -117,9 +129,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         onFieldSubmitted: (value) {
                           _submitForm();
                         },
+                        onSaved: (newValue) {
+                          _editedProduct.imageUrl = newValue;
+                        },
                         onEditingComplete: () {
                           FocusScope.of(context).requestFocus(FocusNode());
-                          setState(() {});
                         },
                       ),
                     ),

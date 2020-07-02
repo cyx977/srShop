@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class MutableProduct {
   String id;
   String title;
@@ -9,11 +7,11 @@ class MutableProduct {
   bool isFavourite;
 
   MutableProduct({
-    @required this.id,
-    @required this.title,
-    @required this.description,
-    @required this.price,
-    @required this.imageUrl,
+    this.id,
+    this.title,
+    this.description,
+    this.price,
+    this.imageUrl,
     this.isFavourite = false,
   });
 }

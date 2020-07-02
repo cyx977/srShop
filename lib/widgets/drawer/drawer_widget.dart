@@ -8,7 +8,7 @@ class DrawerBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appBar = AppBar(
-      title: Consumer<AppDetail>(
+      title: Consumer<AppDetailProvider>(
         builder: (context, value, child) => Text("${value.appName}"),
       ),
     );

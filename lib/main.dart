@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider.value(
-          value: const AppDetail(
+          value: const AppDetailProvider(
             appName: "Nepali JhOlay",
             appUrl: "www.google.com",
           ),
