@@ -9,17 +9,19 @@ class EditProductScreen extends StatefulWidget {
 }
 
 class _EditProductScreenState extends State<EditProductScreen> {
-  final _priceNode = FocusNode();
-  final _descriptionNode = FocusNode();
+  final _priceFocusNode = FocusNode();
+  final _descriptionFocusNode = FocusNode();
   final _imageUrlFocusNode = FocusNode();
   final _imageUrlController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
-    _priceNode.dispose();
-    _descriptionNode.dispose();
+    _priceFocusNode.dispose();
+    _descriptionFocusNode.dispose();
+    //below line can't be below because disposed node still will be used
+    _imageUrlFocusNode.removeListener(_imageUrlListener);
     _imageUrlFocusNode.dispose();
     _imageUrlController.dispose();
-    _imageUrlFocusNode.removeListener(_imageUrlListener);
     print("disposing focusnodes");
     super.dispose();
   }
@@ -36,6 +38,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
+  void _submitForm() {
+    _formKey.currentState.save();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +52,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Form(
+          key: _formKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -53,21 +60,24 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   decoration: InputDecoration(labelText: "Title"),
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (value) =>
-                      FocusScope.of(context).requestFocus(_priceNode),
+                      FocusScope.of(context).requestFocus(_priceFocusNode),
+                  onSaved: (newValue) {
+                    print(newValue);
+                  },
                 ),
                 TextFormField(
                   decoration: InputDecoration(labelText: "Price"),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
-                  focusNode: _priceNode,
-                  onFieldSubmitted: (value) =>
-                      FocusScope.of(context).requestFocus(_descriptionNode),
+                  focusNode: _priceFocusNode,
+                  onFieldSubmitted: (value) => FocusScope.of(context)
+                      .requestFocus(_descriptionFocusNode),
                   //todo dispose focusnode
                 ),
                 TextFormField(
                   decoration: InputDecoration(labelText: "Description"),
                   keyboardType: TextInputType.multiline,
-                  focusNode: _descriptionNode,
+                  focusNode: _descriptionFocusNode,
                   maxLines: 3,
                 ),
                 Row(
@@ -104,6 +114,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         textInputAction: TextInputAction.done,
                         controller: _imageUrlController,
                         focusNode: _imageUrlFocusNode,
+                        onFieldSubmitted: (value) {
+                          _submitForm();
+                        },
                         onEditingComplete: () {
                           FocusScope.of(context).requestFocus(FocusNode());
                           setState(() {});

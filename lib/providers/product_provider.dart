@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:srShop/models/product_model.dart';
 
-class ProductProvider with ChangeNotifier {
-  final String id;
-  final String title;
-  final String description;
-  final double price;
-  final String imageUrl;
-  bool isFavourite;
-
+class ProductProvider extends Product with ChangeNotifier {
   ProductProvider({
-    this.id,
-    this.title,
-    this.description,
-    this.price,
-    this.imageUrl,
-    this.isFavourite = false,
-  });
+    id,
+    title,
+    description,
+    price,
+    imageUrl,
+    isFavourite = false,
+  }) : super(
+          id: id,
+          title: title,
+          description: description,
+          price: price,
+          imageUrl: imageUrl,
+        );
   void toggleFavourite() {
     this.isFavourite = !this.isFavourite;
     notifyListeners();

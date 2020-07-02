@@ -128,7 +128,23 @@ class CartDetailScreen extends StatelessWidget {
                                 );
                                 cart.clear();
                               } else {
-                                //cart empty
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                          "Cart is Empty Add something to the cart."),
+                                      actions: [
+                                        FlatButton(
+                                          child: Text("Close"),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
                               }
                             },
                             textColor: Theme.of(context).primaryColor,
