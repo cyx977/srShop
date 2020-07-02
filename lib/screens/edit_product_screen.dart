@@ -38,7 +38,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("building");
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Product"),
@@ -106,6 +105,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         controller: _imageUrlController,
                         focusNode: _imageUrlFocusNode,
                         onEditingComplete: () {
+                          FocusScope.of(context).requestFocus(FocusNode());
                           setState(() {});
                         },
                       ),

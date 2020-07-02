@@ -21,7 +21,7 @@ class ProductsGrid extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         itemBuilder: (_, index) {
-          List<ProductProvider> products = popupSelection == true
+          List<ProductProvider> products = popupSelection
               ? provider.items.toList()
               : provider.items
                   .where((element) => element.isFavourite == true)
@@ -31,7 +31,7 @@ class ProductsGrid extends StatelessWidget {
             child: ProductItem(),
           );
         },
-        itemCount: popupSelection == true
+        itemCount: popupSelection
             ? provider.items.length
             : provider.items
                 .where((element) => element.isFavourite == true)

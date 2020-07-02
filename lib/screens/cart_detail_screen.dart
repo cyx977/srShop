@@ -50,7 +50,7 @@ class CartDetailScreen extends StatelessWidget {
                       );
                     });
                 clear.then((result) {
-                  if (result == true) {
+                  if (result) {
                     Provider.of<CartProvider>(context, listen: false).clear();
                   }
                 });
