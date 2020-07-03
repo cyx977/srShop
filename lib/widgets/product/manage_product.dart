@@ -31,7 +31,7 @@ class ManageProductWidget extends StatelessWidget {
                 child: IconButton(
                   icon: Icon(
                     Icons.edit,
-                    color: Theme.of(context).colorScheme.secondaryVariant,
+                    color: Color.fromRGBO(112, 202, 237, 1),
                   ),
                   onPressed: () {},
                 ),

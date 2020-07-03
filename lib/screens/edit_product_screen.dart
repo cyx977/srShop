@@ -18,9 +18,10 @@ class _EditProductScreenState extends State<EditProductScreen> {
   var _editedProduct = MutableProduct();
   @override
   void dispose() {
+    //should dispose listener first before disposing focusnode
+    _priceFocusNode.removeListener(_priceValidationListener);
     _priceFocusNode.dispose();
     _descriptionFocusNode.dispose();
-    //below line can't be below because disposed node still will be used
     _imageUrlFocusNode.removeListener(_imageUrlListener);
     _imageUrlFocusNode.dispose();
     _imageUrlController.dispose();
@@ -31,6 +32,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   @override
   void initState() {
     _imageUrlFocusNode.addListener(_imageUrlListener);
+    _priceFocusNode.addListener(_priceValidationListener);
     super.initState();
   }
 
@@ -40,7 +42,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
+  void _priceValidationListener() {
+    if (!_priceFocusNode.hasFocus) {
+      _formKey.currentState.validate();
+    }
+  }
+
   void _submitForm() {
+    bool result = _formKey.currentState.validate();
+    if (!result) {
+      return;
+    }
     _formKey.currentState.save();
     print(_editedProduct.title);
     print(_editedProduct.price);
@@ -54,6 +66,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Product"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: _submitForm,
+          )
+        ],
       ),
       drawer: DrawerBuilder(),
       body: Padding(
@@ -64,7 +82,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
             child: Column(
               children: [
                 TextFormField(
-                  decoration: InputDecoration(labelText: "Title"),
+                  validator: (value) {
+                    if (value.length < 5) {
+                      return "Can't be less than 5 characters";
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    labelStyle: TextStyle(
+                      color: Colors.green,
+                    ),
+                    helperStyle: TextStyle(
+                      color: Colors.red,
+                    ),
+                    labelText: "Title",
+                  ),
                   textInputAction: TextInputAction.next,
                   onFieldSubmitted: (value) =>
                       FocusScope.of(context).requestFocus(_priceFocusNode),
@@ -73,6 +105,21 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   },
                 ),
                 TextFormField(
+                  validator: (value) {
+                    if (double.tryParse(value) is! double) {
+                      return "Invalid Input";
+                    }
+                    if (value.length < 1) {
+                      return "Can't be less than 5 characters";
+                    }
+                    if (value.length < 1) {
+                      return "Can't be less than 5 characters";
+                    }
+                    if (value != "123") {
+                      return "invalid pre test";
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(labelText: "Price"),
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
