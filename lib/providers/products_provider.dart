@@ -67,4 +67,9 @@ class ProductsProvider with ChangeNotifier {
       _items.firstWhere((element) => element.id == id);
 
   List<ProductProvider> get items => [..._items];
+
+  void add(ProductProvider product) {
+    _items.add(product);
+    notifyListeners();
+  }
 }

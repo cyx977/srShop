@@ -1,5 +1,9 @@
 import "package:flutter/material.dart";
+import 'package:provider/provider.dart';
 import 'package:srShop/models/mutableProduct_model.dart';
+import 'package:srShop/providers/product_provider.dart';
+import 'package:srShop/providers/products_provider.dart';
+import 'package:srShop/screens/products_overview_screen.dart';
 import 'package:srShop/widgets/drawer/drawer_widget.dart';
 
 class EditProductScreen extends StatefulWidget {
@@ -45,6 +49,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
               !_imageUrlController.text.startsWith("https:"))) {
         print("invalid url");
         return;
+      } else {
+        print("valid");
       }
       setState(() {});
     }
@@ -56,11 +62,16 @@ class _EditProductScreenState extends State<EditProductScreen> {
       return;
     }
     _formKey.currentState.save();
-    print(_editedProduct.title);
-    print(_editedProduct.price);
-    print(_editedProduct.id);
-    print(_editedProduct.description);
-    print(_editedProduct.imageUrl);
+    Provider.of<ProductsProvider>(context, listen: false).add(
+      ProductProvider(
+        id: DateTime.now().toString(),
+        title: _editedProduct.title,
+        description: _editedProduct.description,
+        price: _editedProduct.price,
+        imageUrl: _editedProduct.imageUrl,
+      ),
+    );
+    Navigator.pushNamed(context, ProductsOverviewScreen.route);
   }
 
   @override
