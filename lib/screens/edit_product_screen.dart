@@ -1,10 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
-import 'package:srShop/models/mutableProduct_model.dart';
-import 'package:srShop/providers/product_provider.dart';
-import 'package:srShop/providers/products_provider.dart';
-import 'package:srShop/screens/products_overview_screen.dart';
-import 'package:srShop/widgets/drawer/drawer_widget.dart';
+import '../models/mutableProduct_model.dart';
+import '../providers/product_provider.dart';
+import '../providers/products_provider.dart';
+import '../screens/products_overview_screen.dart';
+import '../widgets/drawer/drawer_widget.dart';
+import '../widgets/edit_product/image_preview.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const String route = "/edit-product";
@@ -156,30 +157,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      margin: EdgeInsets.only(
-                        top: 8,
-                        right: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      child: _imageUrlController.text.isEmpty
-                          ? FittedBox(
-                              child: Text("Enter a URL"),
-                            )
-                          : FittedBox(
-                              child: Image.network(
-                                _imageUrlController.text,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                    ),
+                    ImagePreview(imageUrlController: _imageUrlController),
                     Expanded(
                       child: TextFormField(
                         decoration: InputDecoration(labelText: "Image Url"),
