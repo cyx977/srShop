@@ -33,7 +33,7 @@ class ManageProductScreen extends StatelessWidget {
                   children: [
                     ManageProductWidget(
                       description: products[index].description,
-                      id: products[index].id,
+                      productId: products[index].id,
                       imageUrl: products[index].imageUrl,
                       price: products[index].price,
                       title: products[index].title,

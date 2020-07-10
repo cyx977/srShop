@@ -35,15 +35,23 @@ class CartDetailScreen extends StatelessWidget {
                             "Are you Sure You want to clear $removalString from the Cart ?"),
                         actions: [
                           FlatButton(
-                            child: Text("Yes"),
+                            child: Text(
+                              "Yes",
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
                             onPressed: () {
-                              Navigator.pop(context, true);
+                              Navigator.of(context).pop(true);
                             },
                           ),
                           FlatButton(
-                            child: Text("No"),
+                            child: Text(
+                              "No",
+                              style: TextStyle(color: Colors.red),
+                            ),
                             onPressed: () {
-                              Navigator.pop(context, false);
+                              Navigator.of(context).pop(false);
                             },
                           )
                         ],

@@ -9,12 +9,13 @@ class CartDetailItem extends StatelessWidget {
   final String title;
   final int quantity;
 
-  CartDetailItem(
-      {@required this.id,
-      @required this.price,
-      @required this.title,
-      @required this.quantity,
-      @required this.productId});
+  CartDetailItem({
+    @required this.id,
+    @required this.price,
+    @required this.title,
+    @required this.quantity,
+    @required this.productId,
+  });
   @override
   Widget build(BuildContext context) {
     return Dismissible(
@@ -38,13 +39,23 @@ class CartDetailItem extends StatelessWidget {
             content: Text("You can again add these items to the cart"),
             actions: [
               FlatButton(
-                child: Text("Yes"),
+                child: Text(
+                  "Yes",
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop(true);
                 },
               ),
               FlatButton(
-                child: Text("No"),
+                child: Text(
+                  "No",
+                  style: TextStyle(
+                    color: Colors.green,
+                  ),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop(false);
                 },

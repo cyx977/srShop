@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
+import 'package:srShop/models/product_model.dart';
 import '../models/mutableProduct_model.dart';
 import '../providers/product_provider.dart';
 import '../providers/products_provider.dart';
@@ -15,6 +16,32 @@ class EditProductScreen extends StatefulWidget {
 }
 
 class _EditProductScreenState extends State<EditProductScreen> {
+  var _initValues = {
+    'id': null,
+    'title': '',
+    'description': '',
+    'price': '',
+    'imageUrl': '',
+  };
+  bool isInit = true;
+  @override
+  void didChangeDependencies() {
+    String productId = ModalRoute.of(context).settings.arguments as String;
+    if (isInit) {
+      if (productId != null) {
+        Product product =
+            Provider.of<ProductsProvider>(context).findById(productId);
+        _initValues['id'] = product.id;
+        _initValues['title'] = product.title;
+        _initValues['price'] = product.price.toString();
+        _initValues['description'] = product.description;
+        _imageUrlController.text = product.imageUrl;
+      }
+    }
+    isInit = false;
+    super.didChangeDependencies();
+  }
+
   final _priceFocusNode = FocusNode();
   final _descriptionFocusNode = FocusNode();
   final _imageUrlFocusNode = FocusNode();
@@ -36,7 +63,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _imageUrlFocusNode.removeListener(_imageUrlListener);
     _imageUrlFocusNode.dispose();
     _imageUrlController.dispose();
-    print("disposing focusnodes");
     super.dispose();
   }
 
@@ -48,10 +74,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
               !_imageUrlController.text.endsWith(".jpeg")) ||
           (!_imageUrlController.text.startsWith("http:") &&
               !_imageUrlController.text.startsWith("https:"))) {
-        print("invalid url");
         return;
-      } else {
-        print("valid");
       }
       setState(() {});
     }
@@ -63,15 +86,27 @@ class _EditProductScreenState extends State<EditProductScreen> {
       return;
     }
     _formKey.currentState.save();
-    Provider.of<ProductsProvider>(context, listen: false).add(
-      ProductProvider(
-        id: DateTime.now().toString(),
-        title: _editedProduct.title,
-        description: _editedProduct.description,
-        price: _editedProduct.price,
-        imageUrl: _editedProduct.imageUrl,
-      ),
-    );
+    if (_initValues['id'] != null) {
+      Provider.of<ProductsProvider>(context, listen: false).updateProduct(
+        ProductProvider(
+          id: _initValues['id'],
+          description: _editedProduct.description,
+          imageUrl: _editedProduct.imageUrl,
+          price: _editedProduct.price,
+          title: _editedProduct.title,
+        ),
+      );
+    } else {
+      Provider.of<ProductsProvider>(context, listen: false).addProduct(
+        ProductProvider(
+          id: DateTime.now().toString(),
+          title: _editedProduct.title,
+          description: _editedProduct.description,
+          price: _editedProduct.price,
+          imageUrl: _editedProduct.imageUrl,
+        ),
+      );
+    }
     Navigator.pushNamed(context, ProductsOverviewScreen.route);
   }
 
@@ -96,6 +131,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             child: Column(
               children: [
                 TextFormField(
+                  initialValue: _initValues['title'],
                   validator: (value) {
                     if (value.isEmpty) {
                       return "Please enter a title";
@@ -114,6 +150,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   },
                 ),
                 TextFormField(
+                  initialValue: _initValues['price'],
                   validator: (value) {
                     if (value.isEmpty) {
                       return "Please enter a Price";
@@ -137,6 +174,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                   },
                 ),
                 TextFormField(
+                  initialValue: _initValues['description'],
                   decoration: InputDecoration(labelText: "Description"),
                   keyboardType: TextInputType.multiline,
                   focusNode: _descriptionFocusNode,
