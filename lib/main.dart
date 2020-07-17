@@ -32,18 +32,10 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'SR Shop', theme: themeData,
+        title: 'SR Shop',
+        theme: themeData,
         routes: routes,
-
-        //oldschool :P
-        // routes: {
-        //   /* home */ ProductsOverviewScreen.route: (context) =>
-        //       ProductsOverviewScreen(),
-        //   ProductDetailScreen.route: (context) => ProductDetailScreen(),
-        //   CartDetailScreen.route: (context) => CartDetailScreen(),
-        //   OrderScreen.route: (context) => OrderScreen(),
-        //   ManageProductScreen.route: (context) => ManageProductScreen(),
-        // },
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

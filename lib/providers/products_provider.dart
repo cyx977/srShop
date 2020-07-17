@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import '../providers/product_provider.dart';
 
 class ProductsProvider with ChangeNotifier {
@@ -67,9 +70,39 @@ class ProductsProvider with ChangeNotifier {
 
   List<ProductProvider> get items => [..._items];
 
-  void addProduct(ProductProvider product) {
-    _items.add(product);
-    notifyListeners();
+  Future<void> addProduct(ProductProvider product) {
+    return http
+        .post(
+      "https://srshop-28285.firebaseio.com/products.json",
+      body: jsonEncode(<String, String>{
+        "description": "${product.description}",
+        "imageUrl": "${product.imageUrl}",
+        "price": "${product.price}",
+        "title": "${product.title}",
+      }),
+    )
+        .then(
+      (http.Response response) {
+        print("still runs");
+        var resp = jsonDecode(response.body);
+        _items.add(
+          ProductProvider(
+            id: resp['name'],
+            description: product.description,
+            imageUrl: product.imageUrl,
+            price: product.price,
+            isFavourite: product.isFavourite,
+            title: product.title,
+          ),
+        );
+        notifyListeners();
+      },
+    ).catchError(
+      (e) {
+        print("error vayo provider ma");
+        throw e;
+      },
+    );
   }
 
   void updateProduct(ProductProvider product) {
