@@ -54,21 +54,36 @@ class ProductsProvider with ChangeNotifier {
       imageUrl:
           'https://contents.mediadecathlon.com/p1641091/kf861c49b737a4d629aa737a501aac642/1641091_default.jpg?format=auto&quality=60&f=800x0',
     ),
-    ProductProvider(
-      id: 'p7',
-      title: 'Turmeric',
-      description:
-          '\"Besar is the perfect medicine to Corona Virus.\" Dr.KP.Oli',
-      price: 100.00,
-      imageUrl:
-          'https://detwxg7gzm61n.cloudfront.net/2019/08/30202434/Turmeric.jpg',
-    ),
   ];
 
   ProductProvider findById(String id) =>
       _items.firstWhere((element) => element.id == id);
 
   List<ProductProvider> get items => [..._items];
+
+  Future<void> fetchProducts() async {
+    try {
+      const url = "https://srshop-28285.firebaseio.com/products.json/";
+      var response = await http.get(url);
+      if (response.body != null) {
+        var responseJson = jsonDecode(response.body) as Map<String, dynamic>;
+        var keys = responseJson.keys;
+        for (var k in keys) {
+          _items.add(ProductProvider(
+            id: k,
+            description: responseJson[k]['description:'],
+            imageUrl: responseJson[k]['imageUrl'],
+            title: responseJson[k]['title'],
+            price: double.tryParse(responseJson[k]['price']),
+          ));
+        }
+      }
+      notifyListeners();
+    } catch (e) {
+      print("E");
+      throw e;
+    }
+  }
 
   Future<void> addProduct(ProductProvider product) {
     return http
@@ -79,6 +94,7 @@ class ProductsProvider with ChangeNotifier {
         "imageUrl": "${product.imageUrl}",
         "price": "${product.price}",
         "title": "${product.title}",
+        "isFavourite": "${product.isFavourite}"
       }),
     )
         .then(

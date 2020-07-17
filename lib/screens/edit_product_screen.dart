@@ -37,7 +37,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
         _initValues['title'] = product.title;
         _initValues['price'] = product.price.toString();
         _initValues['description'] = product.description;
-        _initValues['isFavourite'] = product.isFavourite;
         _imageUrlController.text = product.imageUrl;
       }
     }

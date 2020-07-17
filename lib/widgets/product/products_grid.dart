@@ -8,6 +8,7 @@ import './product_item.dart';
 class ProductsGrid extends StatelessWidget {
   final popupSelection;
   ProductsGrid({this.popupSelection});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductsProvider>(
