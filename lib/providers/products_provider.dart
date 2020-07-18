@@ -97,10 +97,10 @@ class ProductsProvider with ChangeNotifier {
         .patch(
       url,
       body: jsonEncode(<String, String>{
+        "title": "${product.title}",
         "description": "${product.description}",
         "imageUrl": "${product.imageUrl}",
         "price": "${product.price}",
-        "title": "${product.title}",
       }),
     )
         .then((http.Response response) {
@@ -122,10 +122,10 @@ class ProductsProvider with ChangeNotifier {
         .post(
       "https://srshop-28285.firebaseio.com/products.json",
       body: jsonEncode(<String, String>{
+        "title": "${product.title}",
         "description": "${product.description}",
         "imageUrl": "${product.imageUrl}",
         "price": "${product.price}",
-        "title": "${product.title}",
       }),
     )
         .then(
@@ -153,7 +153,12 @@ class ProductsProvider with ChangeNotifier {
   }
 
   void deleteProduct(String productId) {
-    _items.removeWhere((ProductProvider product) => product.id == productId);
-    notifyListeners();
+    var url = "https://srshop-28285.firebaseio.com/products/$productId.json";
+    http.delete(url).then((_) {
+      _items.removeWhere((ProductProvider product) => product.id == productId);
+      notifyListeners();
+    }).catchError((e) {
+      throw e;
+    });
   }
 }
