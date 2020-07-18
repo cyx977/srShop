@@ -22,29 +22,34 @@ class ManageProductScreen extends StatelessWidget {
         ],
       ),
       drawer: DrawerBuilder(),
-      body: Container(
-        height: 500,
-        child: Consumer<ProductsProvider>(
-          builder: (context, productsProvider, child) {
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                var products = productsProvider.items;
-                return Column(
-                  children: [
-                    ManageProductWidget(
-                      description: products[index].description,
-                      productId: products[index].id,
-                      imageUrl: products[index].imageUrl,
-                      price: products[index].price,
-                      title: products[index].title,
-                    ),
-                    Divider(),
-                  ],
-                );
-              },
-              itemCount: productsProvider.items.length,
-            );
-          },
+      body: RefreshIndicator(
+        onRefresh: () async {
+          Provider.of<ProductsProvider>(context, listen: false).fetchProducts();
+        },
+        child: Container(
+          height: 500,
+          child: Consumer<ProductsProvider>(
+            builder: (context, productsProvider, child) {
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  var products = productsProvider.items;
+                  return Column(
+                    children: [
+                      ManageProductWidget(
+                        description: products[index].description,
+                        productId: products[index].id,
+                        imageUrl: products[index].imageUrl,
+                        price: products[index].price,
+                        title: products[index].title,
+                      ),
+                      Divider(),
+                    ],
+                  );
+                },
+                itemCount: productsProvider.items.length,
+              );
+            },
+          ),
         ),
       ),
     );
