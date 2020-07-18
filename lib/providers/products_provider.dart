@@ -89,6 +89,34 @@ class ProductsProvider with ChangeNotifier {
     }
   }
 
+  Future<void> updateProduct(ProductProvider product) async {
+    final _item = findById(product.id);
+    String productId = _item.id;
+    var url = "https://srshop-28285.firebaseio.com/products/$productId.json";
+    http
+        .patch(
+      url,
+      body: jsonEncode(<String, String>{
+        "description": "${product.description}",
+        "imageUrl": "${product.imageUrl}",
+        "price": "${product.price}",
+        "title": "${product.title}",
+      }),
+    )
+        .then((http.Response response) {
+      // var resp = jsonDecode(response.body);
+      print("error vaye ni chalcha");
+      int productIndex = _items.indexWhere((prod) => prod.id == product.id);
+      _items[productIndex] = product;
+      notifyListeners();
+    }).catchError(
+      (e) {
+        print("error vayo update garda provider ma");
+        throw e;
+      },
+    );
+  }
+
   Future<void> addProduct(ProductProvider product) {
     return http
         .post(
@@ -98,7 +126,6 @@ class ProductsProvider with ChangeNotifier {
         "imageUrl": "${product.imageUrl}",
         "price": "${product.price}",
         "title": "${product.title}",
-        "isFavourite": "${product.isFavourite}"
       }),
     )
         .then(
@@ -119,16 +146,10 @@ class ProductsProvider with ChangeNotifier {
       },
     ).catchError(
       (e) {
-        print("error vayo provider ma");
+        print("error vayo  add garda provider ma");
         throw e;
       },
     );
-  }
-
-  void updateProduct(ProductProvider product) {
-    int productIndex = _items.indexWhere((prod) => prod.id == product.id);
-    _items[productIndex] = product;
-    notifyListeners();
   }
 
   void deleteProduct(String productId) {
