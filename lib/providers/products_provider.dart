@@ -69,13 +69,17 @@ class ProductsProvider with ChangeNotifier {
         var responseJson = jsonDecode(response.body) as Map<String, dynamic>;
         var keys = responseJson.keys;
         for (var k in keys) {
-          _items.add(ProductProvider(
-            id: k,
-            description: responseJson[k]['description:'],
-            imageUrl: responseJson[k]['imageUrl'],
-            title: responseJson[k]['title'],
-            price: double.tryParse(responseJson[k]['price']),
-          ));
+          if (_items.where((product) => product.id == k).length == 0) {
+            _items.add(
+              ProductProvider(
+                id: k,
+                description: responseJson[k]['description:'],
+                imageUrl: responseJson[k]['imageUrl'],
+                title: responseJson[k]['title'],
+                price: double.tryParse(responseJson[k]['price']),
+              ),
+            );
+          }
         }
       }
       notifyListeners();
