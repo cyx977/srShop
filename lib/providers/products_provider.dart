@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:srShop/models/exception_model.dart';
 import '../providers/product_provider.dart';
 
 class ProductsProvider with ChangeNotifier {
@@ -64,7 +65,9 @@ class ProductsProvider with ChangeNotifier {
   Future<void> fetchProducts() async {
     try {
       const url = "https://srshop-28285.firebaseio.com/products.json/";
-      var response = await http.get(url);
+      var response = await http.get(url).catchError((e) {
+        throw e;
+      });
       if (response.body != null) {
         var responseJson = jsonDecode(response.body) as Map<String, dynamic>;
         var keys = responseJson.keys;
@@ -112,15 +115,16 @@ class ProductsProvider with ChangeNotifier {
     }).catchError(
       (e) {
         print("error vayo update garda provider ma");
-        throw e;
+        throw HttpException(message: e.toString());
       },
     );
   }
 
   Future<void> addProduct(ProductProvider product) {
+    const url = "https://srshop-28285.firebaseio.com/products.json";
     return http
         .post(
-      "https://srshop-28285.firebaseio.com/products.json",
+      url,
       body: jsonEncode(<String, String>{
         "title": "${product.title}",
         "description": "${product.description}",
@@ -152,13 +156,25 @@ class ProductsProvider with ChangeNotifier {
     );
   }
 
-  void deleteProduct(String productId) {
+  Future<void> deleteProduct(String productId) async {
+    // var url = "https://srshop-28285.firebaseio.com/products/$productId.json";
+    // http.delete(url).then((_) {
+    //   _items.removeWhere((ProductProvider product) => product.id == productId);
+    //   notifyListeners();
+    // }).catchError((e) {
+    //   throw e;
+    // });
+
     var url = "https://srshop-28285.firebaseio.com/products/$productId.json";
-    http.delete(url).then((_) {
-      _items.removeWhere((ProductProvider product) => product.id == productId);
+    final _indexExistingProduct =
+        _items.indexWhere((product) => product.id == productId);
+    final _existingProduct = _items[_indexExistingProduct];
+    _items.removeAt(_indexExistingProduct);
+    notifyListeners();
+    await http.patch(url).catchError((e) {
+      _items.insert(_indexExistingProduct, _existingProduct);
       notifyListeners();
-    }).catchError((e) {
-      throw e;
+      throw HttpException(message: e.toString());
     });
   }
 }

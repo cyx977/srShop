@@ -24,7 +24,11 @@ class ManageProductScreen extends StatelessWidget {
       drawer: DrawerBuilder(),
       body: RefreshIndicator(
         onRefresh: () async {
-          Provider.of<ProductsProvider>(context, listen: false).fetchProducts();
+          Provider.of<ProductsProvider>(context, listen: false)
+              .fetchProducts()
+              .catchError((e) {
+            print("error fetching");
+          });
         },
         child: Container(
           height: 500,

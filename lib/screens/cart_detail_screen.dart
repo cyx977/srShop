@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:srShop/screens/products_overview_screen.dart';
 import '../screens/order_screen.dart';
 import '../providers/cart_provider.dart';
 import '../providers/order_provider.dart';
@@ -122,45 +123,7 @@ class CartDetailScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  Consumer<OrderProvider>(
-                    builder: (context, order, child) {
-                      return Consumer<CartProvider>(
-                        builder: (context, cart, child) {
-                          return FlatButton(
-                            child: Text("Order Now"),
-                            onPressed: () {
-                              if (cart.getTotal > 0) {
-                                order.addOrder(
-                                  cartItems: cart.items.values.toList(),
-                                  total: cart.getTotal,
-                                );
-                                cart.clear();
-                              } else {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      title: Text(
-                                          "Cart is Empty Add something to the cart."),
-                                      actions: [
-                                        FlatButton(
-                                          child: Text("Close"),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                        )
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-                            },
-                            textColor: Theme.of(context).primaryColor,
-                          );
-                        },
-                      );
-                    },
-                  )
+                  OrderButton()
                 ],
               ),
             ),
@@ -185,5 +148,81 @@ class CartDetailScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class OrderButton extends StatefulWidget {
+  const OrderButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _OrderButtonState createState() => _OrderButtonState();
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  bool _isLoading = false;
+  @override
+  Widget build(BuildContext context) {
+    return _isLoading
+        ? Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CircularProgressIndicator(),
+          )
+        : Consumer<OrderProvider>(
+            builder: (context, order, child) {
+              return Consumer<CartProvider>(
+                builder: (context, cart, child) {
+                  return FlatButton(
+                    child: Text("Order Now"),
+                    onPressed: cart.getTotal <= 0
+                        ? () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text(
+                                      "Cart is Empty Add something to the cart."),
+                                  actions: [
+                                    FlatButton(
+                                      child: Text("Ok"),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    )
+                                  ],
+                                );
+                              },
+                            ).then(
+                              (_) {
+                                Navigator.of(context).pushReplacementNamed(
+                                    ProductsOverviewScreen.route);
+                              },
+                            );
+                          }
+                        : () async {
+                            setState(() {
+                              _isLoading = true;
+                            });
+                            order
+                                .addOrder(
+                              cartItems: cart.items.values.toList(),
+                              total: cart.getTotal,
+                            )
+                                .then(
+                              (_) {
+                                cart.clear();
+                                setState(() {
+                                  _isLoading = false;
+                                });
+                              },
+                            );
+                          },
+                    textColor: Theme.of(context).primaryColor,
+                  );
+                },
+              );
+            },
+          );
   }
 }

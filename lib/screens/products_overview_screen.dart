@@ -27,7 +27,11 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   void didChangeDependencies() {
     Future.delayed(Duration.zero).then((value) {
-      Provider.of<ProductsProvider>(context, listen: false).fetchProducts();
+      Provider.of<ProductsProvider>(context, listen: false)
+          .fetchProducts()
+          .catchError((e) {
+        print("error fetching");
+      });
     });
     super.didChangeDependencies();
   }

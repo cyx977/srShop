@@ -88,7 +88,15 @@ class ManageProductWidget extends StatelessWidget {
                     removeConfirmation.then((bool result) {
                       if (result) {
                         Provider.of<ProductsProvider>(context, listen: false)
-                            .deleteProduct(productId);
+                            .deleteProduct(productId)
+                            .catchError((e) {
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.red,
+                              content: Text("Couldnt Delete"),
+                            ),
+                          );
+                        });
                       }
                     });
                   },
