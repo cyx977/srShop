@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class OrderProvider with ChangeNotifier {
   List<OrderItem> _orders = [];
-  List<OrderItem> get orders => [..._orders];
+  List<OrderItem> get orders => [..._orders].reversed.toList();
 
   Future<void> fetchAndSetOrder() async {
     try {
@@ -74,8 +74,7 @@ class OrderProvider with ChangeNotifier {
         },
       ),
     );
-    _orders.insert(
-      0,
+    _orders.add(
       OrderItem(
         id: jsonDecode(response.body)['name'],
         amount: total,

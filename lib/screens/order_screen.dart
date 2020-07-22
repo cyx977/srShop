@@ -5,28 +5,8 @@ import '../widgets/order/order_item.dart';
 import '../widgets/drawer/drawer_widget.dart';
 import '../providers/order_provider.dart';
 
-class OrderScreen extends StatefulWidget {
+class OrderScreen extends StatelessWidget {
   static const String route = "/Order-Screen";
-
-  @override
-  _OrderScreenState createState() => _OrderScreenState();
-}
-
-class _OrderScreenState extends State<OrderScreen> {
-  bool _isLoading = true;
-  @override
-  void didChangeDependencies() {
-    Future.delayed(Duration.zero).then((_) {
-      Provider.of<OrderProvider>(context, listen: false)
-          .fetchAndSetOrder()
-          .then((_) {
-        setState(() {
-          _isLoading = false;
-        });
-      });
-    });
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,22 +18,28 @@ class _OrderScreenState extends State<OrderScreen> {
           BadgeBuilder(),
         ],
       ),
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Consumer<OrderProvider>(
-              builder: (context, value, child) {
-                return ListView.builder(
-                  itemBuilder: (context, index) {
-                    return OrderItem(
-                      order: value.orders[index],
+      body: FutureBuilder(
+        future: Provider.of<OrderProvider>(context, listen: false)
+            .fetchAndSetOrder(),
+        builder: (context, snapshot) {
+          return snapshot.connectionState == ConnectionState.waiting
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Consumer<OrderProvider>(
+                  builder: (context, value, child) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return OrderItem(
+                          order: value.orders[index],
+                        );
+                      },
+                      itemCount: value.orderCount,
                     );
                   },
-                  itemCount: value.orderCount,
                 );
-              },
-            ),
+        },
+      ),
     );
   }
 }
