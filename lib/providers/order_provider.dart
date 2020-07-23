@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:srShop/models/cart_model.dart';
+import 'package:srShop/models/exception_model.dart';
 import 'package:srShop/models/order_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,7 +16,10 @@ class OrderProvider with ChangeNotifier {
       var response = await http.get(url).catchError((e) {
         throw e;
       });
-      if (response.body != null) {
+      if (response.statusCode == 401) {
+        throw HttpException(message: "UnAuthorised Request");
+      }
+      if (response.body != null && response.statusCode != 401) {
         var responseJson = jsonDecode(response.body) as Map<String, dynamic>;
         var keys = responseJson?.keys;
         if (keys == null) {
@@ -23,8 +27,6 @@ class OrderProvider with ChangeNotifier {
         }
         for (var k in keys) {
           if (_orders.where((order) => order.id == k).length == 0) {
-            // print(responseJson[k]['products']);
-
             _orders.add(
               OrderItem(
                 id: k,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:srShop/screens/auth_screen.dart';
 import 'package:srShop/screens/cart_detail_screen.dart';
 import 'package:srShop/screens/edit_product_screen.dart';
 import 'package:srShop/screens/order_screen.dart';
@@ -51,6 +52,12 @@ Map<String, RouteData> routeConfig = {
     title: "Edit Product",
     addToMenu: true,
     instance: EditProductScreen(),
+  ),
+  AuthScreen.route: RouteData(
+    icon: Icons.verified_user,
+    instance: AuthScreen(),
+    title: "Authentication",
+    addToMenu: true,
   ),
 };
 
