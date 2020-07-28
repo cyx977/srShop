@@ -21,7 +21,7 @@ class ManageProductScreen extends StatelessWidget {
           )
         ],
       ),
-      drawer: DrawerBuilder(),
+      drawer: DrawerWidget(),
       body: RefreshIndicator(
         onRefresh: () async {
           Provider.of<ProductsProvider>(context, listen: false)

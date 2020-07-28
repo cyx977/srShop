@@ -11,7 +11,7 @@ enum FilterOptions {
 }
 
 class ProductsOverviewScreen extends StatefulWidget {
-  static const route = "/";
+  static const route = "/products-overview";
 
   @override
   _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
@@ -39,7 +39,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: DrawerBuilder(),
+      drawer: DrawerWidget(),
       appBar: AppBar(
         title: Text("Casual"),
         actions: <Widget>[

@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 
-class DrawerMenuBuilder extends StatelessWidget {
+class DrawerButtonItem extends StatelessWidget {
   final String title;
-  final String route;
   final IconData icon;
-  const DrawerMenuBuilder({
+  final Function onTapCallback;
+
+  const DrawerButtonItem({
     Key key,
     @required this.title,
-    @required this.route,
+    @required this.onTapCallback,
     @required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushReplacementNamed(context, route);
+        onTapCallback(context: context);
       },
       child: Card(
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).colorScheme.primaryVariant,
         child: ListTile(
           leading: Icon(icon),
           title: Text(

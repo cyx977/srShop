@@ -163,7 +163,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
           )
         ],
       ),
-      drawer: DrawerBuilder(),
+      drawer: DrawerWidget(),
       body: _isLoading
           ? Container(
               child: Center(

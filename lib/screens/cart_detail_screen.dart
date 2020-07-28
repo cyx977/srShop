@@ -12,7 +12,7 @@ class CartDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: DrawerBuilder(),
+      drawer: DrawerWidget(),
       appBar: AppBar(
         title: Text("Your Cart"),
         actions: [

@@ -6,7 +6,11 @@ import 'package:srShop/models/exception_model.dart';
 import '../providers/product_provider.dart';
 
 class ProductsProvider with ChangeNotifier {
-  List<ProductProvider> _items = [
+  final String authToken;
+  ProductsProvider(this._items, {@required this.authToken});
+  List<ProductProvider> _items; // = [];
+
+  /*List<ProductProvider> _items = [
     ProductProvider(
       id: 'p1',
       title: 'Red Shirt',
@@ -55,7 +59,7 @@ class ProductsProvider with ChangeNotifier {
       imageUrl:
           'https://contents.mediadecathlon.com/p1641091/kf861c49b737a4d629aa737a501aac642/1641091_default.jpg?format=auto&quality=60&f=800x0',
     ),
-  ];
+  ];*/
 
   ProductProvider findById(String id) =>
       _items.firstWhere((element) => element.id == id);
@@ -64,7 +68,8 @@ class ProductsProvider with ChangeNotifier {
 
   Future<void> fetchProducts() async {
     try {
-      const url = "https://srshop-28285.firebaseio.com/products.json/";
+      final url =
+          "https://srshop-28285.firebaseio.com/products.json/?auth=$authToken";
       var response = await http.get(url).catchError((e) {
         throw e;
       });
@@ -114,7 +119,6 @@ class ProductsProvider with ChangeNotifier {
       notifyListeners();
     }).catchError(
       (e) {
-        print("error vayo update garda provider ma");
         throw HttpException(message: e.toString());
       },
     );
@@ -150,7 +154,6 @@ class ProductsProvider with ChangeNotifier {
       },
     ).catchError(
       (e) {
-        print("error vayo  add garda provider ma");
         throw e;
       },
     );

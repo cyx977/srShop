@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:srShop/providers/product_provider.dart';
+import 'package:srShop/screens/auth_screen.dart';
+import 'package:srShop/screens/products_overview_screen.dart';
 import './providers/app_detail.dart';
 import './providers/auth_provider.dart';
 import './providers/cart_provider.dart';
@@ -23,7 +26,13 @@ class MyApp extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider(
-          create: (context) => ProductsProvider(),
+          create: (context) => AuthProvider(),
+        ),
+        ChangeNotifierProxyProvider<AuthProvider, ProductsProvider>(
+          create: (context) =>
+              ProductsProvider(<ProductProvider>[], authToken: null),
+          update: (context, auth, products) => ProductsProvider(products.items,
+              authToken: auth.getAuth['token']),
         ),
         ChangeNotifierProvider(
           create: (context) => CartProvider(),
@@ -31,15 +40,18 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => OrderProvider(),
         ),
-        ChangeNotifierProvider(
-          create: (context) => AuthProvider(),
-        )
       ],
-      child: MaterialApp(
-        title: 'SR Shop',
-        theme: themeData,
-        routes: routes,
-        debugShowCheckedModeBanner: false,
+      child: Consumer<AuthProvider>(
+        builder: (context, auth, child) {
+          print(auth.isAuth);
+          return MaterialApp(
+            title: 'SR Shop',
+            theme: themeData,
+            home: auth.isAuth ? ProductsOverviewScreen() : AuthScreen(),
+            routes: RouteHelper.routes,
+            debugShowCheckedModeBanner: false,
+          );
+        },
       ),
     );
   }

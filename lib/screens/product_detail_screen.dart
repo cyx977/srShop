@@ -13,7 +13,7 @@ class ProductDetailScreen extends StatelessWidget {
     var providerData = Provider.of<ProductsProvider>(context, listen: false);
     ProductProvider product = providerData.findById(productId);
     return Scaffold(
-      drawer: DrawerBuilder(),
+      drawer: DrawerWidget(),
       appBar: AppBar(
         title: Text(product.title),
       ),
